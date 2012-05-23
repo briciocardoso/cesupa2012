@@ -141,16 +141,9 @@ function getValorEntreParentese(string)
 
 function showError(campo,mensagem)
 {
-//	var element = document.getElementById(campo.id);
-//	
-//	var novaDiv = document.createElement("div");
-//	novaDiv.innerHTML = mensagem;
-//	novaDiv.id = "error";
-//	
-//	var elementChild = element.parentNode;
-//	elementChild.insertBefore(novaDiv, null);
-	
-	alert(mensagem);
+	var element = document.getElementById('messages');
+	element.innerHTML = mensagem;
+
 	campo.focus();
 }
 
@@ -169,6 +162,7 @@ function isTypeValidate(type)
 	case "select-one": return true;
 	case "textarea": return true;
 	case "checkbox": return true;
+	case "password": return true;
 
 	default: return false;
 	}
@@ -186,7 +180,7 @@ function isEmpty(campo,label)
 	{
 		if (label == null)
 			label = campo.title;
-
+		
 		showError(campo, "Atenção: O campo "+label+" é Obrigatório");
 		
 		campo.value = '';
@@ -216,8 +210,7 @@ function isNotSelected(campo,label)
 		if (label == null)
 			label = campo.title;
 
-
-		alert("Atenção: O campo "+label+" deve ser selecionado");
+		showError(campo,"Atenção: O campo "+label+" deve ser selecionado");
 		campo.focus();
 		return true;
 	}
@@ -293,7 +286,9 @@ function isNotEmail(campo,label)
 		if (label == null)
 			label = campo.title;
 
-		alert('Atenção: O campo '+label+' é inválido');
+		
+		showError(campo,'Atenção: O campo '+label+' é inválido');
+		
 		campo.focus();
 		return true;
 	}

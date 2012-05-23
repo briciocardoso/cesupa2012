@@ -12,12 +12,14 @@ public class UsuarioController {
 	private UsuarioDao usuarioDao;
 	private UsuarioSession usuarioSession;
 	private Result result;
+	private ContaController contaController;
 
-	UsuarioController(UsuarioDao usuarioDao, Result result,UsuarioSession usuarioSession)
+	UsuarioController(UsuarioDao usuarioDao, Result result,UsuarioSession usuarioSession,ContaController contaController)
 	{
 		this.usuarioDao = usuarioDao;
 		this.result = result;
 		this.usuarioSession = usuarioSession;
+		this.contaController = contaController;
 	}
 
 	// Existe apenas mostrar o jsp
@@ -25,8 +27,9 @@ public class UsuarioController {
 
 	}
 
-	public void index() {
-
+	public void index() 
+	{
+		result.include("listaContas", this.contaController.getAllContaUsuario());
 	}
 
 	public void login() {

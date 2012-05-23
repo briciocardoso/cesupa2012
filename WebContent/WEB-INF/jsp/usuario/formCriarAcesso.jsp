@@ -37,9 +37,14 @@
 		  <input type="text" name="confirmacaoSenha" size="30" title="Confirmação de Senha" validate="equals(usuario.senha);"/>	
 		  <br/>
 
-		  <input type="submit" value="Salvar" onclick="return isValida();"/>		   
+		  <input type="submit" value="Salvar" onclick="return isValida();"/>
+		  <input type="button" value="Voltar" onclick="voltar();"/>
+				   
 		
 		</form>
+		
+		
+		<script type="text/javascript" src="../resource/js/Action.js"></script>
 		
 		<script type="text/javascript" src="../resource/js/Validate.js"></script>
 

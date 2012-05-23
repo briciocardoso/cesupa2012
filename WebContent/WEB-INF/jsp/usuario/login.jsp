@@ -7,33 +7,62 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="../resource/css/960gs.css" />
 		<title>Bem Vindo</title>
 	</head>
 	
 <body>
+
+<div class="container_12">
+
+	<div class="grid_12">
 
 	<h1>Bem Vindo ao Saldo</h1>
 	
 	<hr/>
 	
 	<h3>Realize seu Login</h3>
+
+	</div>
 	
-	<form action='<c:url value="/usuario/realizarLogin"/>' method="post">
+	<div class="clear"></div>
 	
+	<div class="grid_4 prefix_3">
 	
-		<label>Email</label>
-		<input type="text" name="usuario.email" size="70" />
+		<div id="messages"></div>
 		
-		<br/>
+		<form action='<c:url value="/usuario/realizarLogin"/>' name="form" method="post">
 		
-		<label>Senha</label>
-		<input type="text" name="usuario.senha" size="70" />
 		
-		<br/>
-		
-		<input type="submit" value="Login"/>
-		
-	</form>
+			<label>Email</label>
+			<input type="text" name="usuario.email" size="70" title="Email" validate="required;email;" />
+			
+			<br/>
+			
+			<label>Senha</label>
+			<input type="password" name="usuario.senha" size="70" title="Senha" validate="required;"/>
+			
+			<br/>
+			
+			<input type="submit" value="Login" onclick="return isValida();"/>
+			
+			<br/>
+			
+			<a href="<c:url value="/usuario/formCriarAcesso"/>">Criar acesso ao Saldo Positivo</a>
+			
+		</form>
+	
+	</div>
+	
+	<div class="clear"></div>
+
+</div>
+
+	
+	<script type="text/javascript" src="../resource/js/Ajax.js"></script>
+	<script type="text/javascript" src="../resource/js/Validate.js"></script>
+
+	
 </body>
 
 </html>
