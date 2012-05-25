@@ -39,8 +39,10 @@ public class ContaController
 
 	public void criarConta(Conta conta)
 	{
+		conta.setUsuario(this.usuarioSession.getUsuario());
 		this.contaDao.salvar(conta);
-		this.result.redirectTo(ContaController.class).listar();
+		this.result.include("success","Cadastro Realizada com Sucesso");
+		this.result.redirectTo(UsuarioController.class).index();
 	}
 
 	public void listaMoeda(){
@@ -66,6 +68,7 @@ public class ContaController
 	{
 		conta.setUsuario(this.usuarioSession.getUsuario());
 		this.contaDao.editar(conta);
+		this.result.include("success","Conta Atualizada com Sucesso");
 		this.result.redirectTo(UsuarioController.class).index();
 	}
 

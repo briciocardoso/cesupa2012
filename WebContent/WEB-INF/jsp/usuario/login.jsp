@@ -8,6 +8,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css" href="../resource/css/960gs.css" />
+		<link rel="stylesheet" type="text/css" href="../resource/css/bootstrap.css" />
+		
 		<title>Bem Vindo</title>
 	</head>
 	
@@ -44,7 +46,7 @@
 			
 			<br/>
 			
-			<input type="submit" value="Login" onclick="return isValida();"/>
+			<input type="submit" value="Login" onclick="return isValida();" class="btn-primary"/>
 			
 			<br/>
 			

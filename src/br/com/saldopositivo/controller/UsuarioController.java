@@ -54,5 +54,11 @@ public class UsuarioController {
 		result.include("mensagem", "Bem vindo ao Saldo");
 		result.redirectTo(UsuarioController.class).index();
 	}
+	
+	public void sair()
+	{
+		this.usuarioSession.sair();
+		this.result.redirectTo(UsuarioController.class).login();
+	}
 
 }
