@@ -1,5 +1,3 @@
-@CHARSET "UTF-8";
-
 #messageSuccess
 {
 	color: green;
@@ -10,4 +8,9 @@
 {
 	color: red;
 	text-align: center;
+}
+
+.boxConta
+{
+	width: 300px;
 }
