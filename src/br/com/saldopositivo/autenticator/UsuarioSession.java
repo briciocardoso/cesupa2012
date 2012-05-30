@@ -1,15 +1,17 @@
 package br.com.saldopositivo.autenticator;
 
+import java.io.Serializable;
+
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;
 import br.com.saldopositivo.model.Usuario;
 
 @Component
 @SessionScoped
-public class UsuarioSession 
+public class UsuarioSession implements Serializable
 {
 
-	private Usuario usuario;
+	private transient Usuario usuario;
 
 	public boolean isLogado()
 	{

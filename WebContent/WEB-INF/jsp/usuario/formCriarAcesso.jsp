@@ -26,6 +26,7 @@
 		  <br/>
 
 		  <input type="submit" value="Salvar" onclick="return isValida();"/>
+		  
 		  <input type="button" value="Voltar" onclick="voltar();"/>
 				   
 		

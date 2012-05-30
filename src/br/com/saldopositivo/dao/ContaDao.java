@@ -7,7 +7,6 @@ import javax.persistence.Query;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.saldopositivo.model.Conta;
-import br.com.saldopositivo.model.Moeda;
 import br.com.saldopositivo.model.Usuario;
 
 @Component
