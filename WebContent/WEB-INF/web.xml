@@ -22,6 +22,11 @@
 			br.com.caelum.vraptor.util.jpa
 		</param-value>
 	</context-param>
+	
+	<context-param>
+    	<param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
+    	<param-value>pt_BR</param-value>
+	</context-param>
 
 
 

@@ -15,8 +15,8 @@ public interface IContaBusiness
 	public void apagar(Conta conta);
 
 	public void editar(Conta conta);
-	
-	public Conta get(Long id);
+
+	public Conta get(Conta conta);
 	
 	
 //	public void updateSaldoConta(Lancamento lancamento);
