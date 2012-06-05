@@ -7,7 +7,6 @@ import javax.persistence.Query;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.saldopositivo.model.Conta;
-import br.com.saldopositivo.model.Moeda;
 import br.com.saldopositivo.model.Usuario;
 
 @Component
@@ -25,7 +24,7 @@ public class ContaDao
 		this.entityManager.persist(conta);
 	}
 	
-	public void editar(Conta conta)
+	public void update(Conta conta)
 	{
 		this.entityManager.merge(conta);
 	}
@@ -38,13 +37,18 @@ public class ContaDao
 		return query.getResultList();
 	}
 	
-	public Conta selectById(Conta conta,Usuario usuario)
+	public Conta selectById(Conta conta)
 	{
 		Query query = this.entityManager.createQuery("SELECT c FROM Conta c WHERE c.usuario.id = :idUsuario AND c.id = :idConta", Conta.class);
-		query.setParameter("idUsuario",usuario.getId());
+		query.setParameter("idUsuario",conta.getUsuario().getId());
 		query.setParameter("idConta",conta.getId());
 		
 		return (Conta) query.getSingleResult();
+	}
+	
+	public void delete(Conta conta)
+	{
+		this.entityManager.remove(conta);
 	}
 	
 	

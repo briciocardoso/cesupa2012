@@ -25,5 +25,10 @@ public class MoedaDao
 		Query query = this.entityManager.createQuery("SELECT m FROM Moeda m", Moeda.class);
 		return query.getResultList();
 	}
+	
+	public Moeda selectById(Long id)
+	{
+		return entityManager.find(Moeda.class,id);
+	}
 
 }

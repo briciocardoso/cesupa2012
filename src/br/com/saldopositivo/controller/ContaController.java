@@ -6,6 +6,10 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.saldopositivo.autenticator.UsuarioSession;
+import br.com.saldopositivo.business.ContaBusiness;
+import br.com.saldopositivo.business.IContaBusiness;
+import br.com.saldopositivo.business.IMoedaBusiness;
+import br.com.saldopositivo.business.MoedaBusiness;
 import br.com.saldopositivo.dao.ContaDao;
 import br.com.saldopositivo.model.Conta;
 
@@ -13,61 +17,79 @@ import br.com.saldopositivo.model.Conta;
 public class ContaController 
 {
 
-	private ContaDao contaDao;
-	private MoedaController moedaController;
+	private IContaBusiness contaBusiness;
+	private IMoedaBusiness moedaBusiness;
 	private Result result;
 	private UsuarioSession usuarioSession;
 
-	public ContaController(ContaDao contaDao,Result result,MoedaController moedaController, UsuarioSession usuarioSession)
+	public ContaController(ContaBusiness contaBusiness,Result result,MoedaBusiness moedaBusiness, UsuarioSession usuarioSession)
 	{
-		this.contaDao = contaDao;
+		this.contaBusiness = contaBusiness;
 		this.result = result;
-		this.moedaController = moedaController;
+		this.moedaBusiness = moedaBusiness;
 		this.usuarioSession = usuarioSession;
 	}
 
 	public List<Conta> getAllContaUsuario()
 	{
-		return this.contaDao.selectAllByUsuario(this.usuarioSession.getUsuario());
+		return this.contaBusiness.getAllContasPorUsuario(this.usuarioSession.getUsuario());
 	}
-
 
 	public void formConta()
 	{
-		this.result.include("listaDeMoeda",this.moedaController.listar());
+		this.result.include("listaDeMoeda",this.moedaBusiness.getAllMoeda());
 	}
 
 	public void criarConta(Conta conta)
 	{
-		conta.setUsuario(this.usuarioSession.getUsuario());
-		this.contaDao.salvar(conta);
-		this.result.include("success","Cadastro Realizada com Sucesso");
+		try {
+			conta.setUsuario(this.usuarioSession.getUsuario());
+			this.contaBusiness.save(conta);
+			this.result.include("success","Cadastro Realizada com Sucesso");
+			
+		} catch (Exception e) {
+			this.result.include("error","Falha no cadastro da Conta");
+		}
+		
 		this.result.redirectTo(UsuarioController.class).index();
 	}
 
-	public void listaMoeda(){
-
-		this.result.include("listaDeMoeda",this.moedaController.listar());
-
-	}
+//	public void listaMoeda(){
+//
+//		this.result.include("listaDeMoeda",this.moedaController.listar());
+//
+//	}
 
 	@Path("conta/formEditaConta/{conta.id}")
 	public void formEditaConta(Conta conta)
 	{
-		Conta contaDoUsuario = this.contaDao.selectById(conta, this.usuarioSession.getUsuario());
+		Conta contaDoUsuario = this.contaBusiness.get(conta.getId());
+//		(conta, this.usuarioSession.getUsuario());
 
 		if (contaDoUsuario != null)
 		{
 			this.result.include("conta",contaDoUsuario);
-			this.listaMoeda();
+//			this.listaMoeda();
 		}
-
+	}
+	
+	@Path("conta/excluir/{conta.id}")
+	public void excluir(Conta conta)
+	{
+		conta.setUsuario(this.usuarioSession.getUsuario());
+		
+		if (conta != null)
+		{
+			this.contaBusiness.apagar(conta);
+			this.result.include("success","Exclusão da Conta Realizado com Sucesso");
+			this.result.redirectTo(UsuarioController.class).index();
+		}
 	}
 
 	public void editarConta(Conta conta)
 	{
 		conta.setUsuario(this.usuarioSession.getUsuario());
-		this.contaDao.editar(conta);
+		//this.contaDao.editar(conta);
 		this.result.include("success","Conta Atualizada com Sucesso");
 		this.result.redirectTo(UsuarioController.class).index();
 	}

@@ -22,16 +22,17 @@ public class UsuarioController {
 		this.contaController = contaController;
 	}
 
-	// Existe apenas mostrar o jsp
 	public void formCriarAcesso() {
 
 	}
-
+	
+	
 	public void index() 
 	{
 		result.include("listaContas", this.contaController.getAllContaUsuario());
 	}
-
+	
+	
 	public void login() {
 
 	}
@@ -52,7 +53,7 @@ public class UsuarioController {
 	public void criarAcesso(Usuario usuario) {
 		this.usuarioDao.salvar(usuario);
 		result.include("mensagem", "Bem vindo ao Saldo");
-		result.redirectTo(UsuarioController.class).index();
+		result.redirectTo(UsuarioController.class).login();
 	}
 	
 	public void sair()
