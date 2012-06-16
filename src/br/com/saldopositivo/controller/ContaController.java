@@ -54,22 +54,22 @@ public class ContaController
 		this.result.redirectTo(UsuarioController.class).index();
 	}
 
-//	public void listaMoeda(){
-//
-//		this.result.include("listaDeMoeda",this.moedaController.listar());
-//
-//	}
+	public void listaMoeda()
+	{
+		this.result.include("listaDeMoeda",this.moedaBusiness.getAllMoeda());
+	}
 
 	@Path("conta/formEditaConta/{conta.id}")
 	public void formEditaConta(Conta conta)
 	{
-		Conta contaDoUsuario = this.contaBusiness.get(conta.getId());
-//		(conta, this.usuarioSession.getUsuario());
+		conta.setUsuario(this.usuarioSession.getUsuario());
+		
+		Conta contaDoUsuario = this.contaBusiness.get(conta);
 
 		if (contaDoUsuario != null)
 		{
 			this.result.include("conta",contaDoUsuario);
-//			this.listaMoeda();
+			this.listaMoeda();
 		}
 	}
 	
@@ -89,7 +89,9 @@ public class ContaController
 	public void editarConta(Conta conta)
 	{
 		conta.setUsuario(this.usuarioSession.getUsuario());
-		//this.contaDao.editar(conta);
+		
+		this.contaBusiness.editar(conta);
+		
 		this.result.include("success","Conta Atualizada com Sucesso");
 		this.result.redirectTo(UsuarioController.class).index();
 	}

@@ -144,10 +144,9 @@ public class ContaBusiness implements IContaBusiness
 		this.dao.delete(contaRemovida);
 	}
 
-	@Override
-	public Conta get(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Conta get(Conta conta) 
+	{
+		return this.dao.selectById(conta);
 	}
 	
 	

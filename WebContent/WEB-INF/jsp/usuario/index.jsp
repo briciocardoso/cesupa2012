@@ -15,9 +15,10 @@
 		<div class="boxConta">
 	
 		<h4>${conta.nome}</h4>
-		<div>Saldo: ${conta.saldo}</div>
+		<div>Saldo Atual: ${conta.saldo}</div>
 		<a href="<c:url value="/conta/formEditaConta/${conta.id}"/>">Editar Conta</a> - 
-		<a href="<c:url value="/conta/excluir/${conta.id}"/>" onclick="return confirm('Confirma exclusão da Conta ?')">Excluir Conta</a>
+		<a href="<c:url value="/conta/excluir/${conta.id}"/>" onclick="return confirm('Confirma exclusão da Conta ?')">Excluir Conta</a> - 
+		<a href="<c:url value="/lancamento/index/${conta.id}"/>">Lançamentos</a>
 		<br/>
 
 		</div>
