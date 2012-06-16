@@ -10,7 +10,6 @@ import br.com.saldopositivo.business.ContaBusiness;
 import br.com.saldopositivo.business.IContaBusiness;
 import br.com.saldopositivo.business.IMoedaBusiness;
 import br.com.saldopositivo.business.MoedaBusiness;
-import br.com.saldopositivo.dao.ContaDao;
 import br.com.saldopositivo.model.Conta;
 
 @Resource
