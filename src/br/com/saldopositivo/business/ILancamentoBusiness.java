@@ -20,4 +20,6 @@ public interface ILancamentoBusiness
 	
 	void criarLancamentoCredito(Conta conta,double valor,Date data,String descricao);
 	
+	Lancamento getById(Long id);
+	
 }

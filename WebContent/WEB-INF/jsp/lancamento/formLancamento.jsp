@@ -21,6 +21,11 @@
 			
 			<br/>
 			
+			<label>Transação</label>
+			<input type="radio" name="lancamento.transacao" value="C"/>Crédito
+			<input type="radio" name="lancamento.transacao" value="D"/>Débito
+			
+			
 			<%-- <label>Moeda: </label>
 			<select name="conta.moeda.id">
 				<c:forEach items="${listaDeMoeda}" var="moeda"> 

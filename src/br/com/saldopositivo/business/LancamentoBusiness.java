@@ -13,10 +13,12 @@ import br.com.saldopositivo.model.Lancamento;
 public class LancamentoBusiness implements ILancamentoBusiness 
 {
 	private LancamentoDao lancamentoDao;
+	private IContaBusiness contaBusiness;
 	
-	public LancamentoBusiness(LancamentoDao lancamentoDao)
+	public LancamentoBusiness(LancamentoDao lancamentoDao,ContaBusiness contaBusiness)
 	{
 		this.lancamentoDao = lancamentoDao;
+		this.contaBusiness = contaBusiness;
 	}
 	
 	
@@ -68,13 +70,13 @@ public class LancamentoBusiness implements ILancamentoBusiness
 		//em.persist(lancamento);
 	}
 
-	public void update(Lancamento lancamento)
+	public void update(Lancamento lancamentoAtual)
 	{
-	//	Lancamento lancamentoAntigo = em.find(Lancamento.class, lancamento.getId());
+		Lancamento lancamentoAntigo = this.getById(lancamentoAtual.getId());
 
-		//contaEJB.updateSaldoContaPorEdicaoLancamento(lancamento, lancamentoAntigo);
+		this.contaBusiness.updateSaldoContaPorEdicaoLancamento(lancamentoAtual, lancamentoAntigo);
 
-		//em.merge(lancamento);
+		this.lancamentoDao.update(lancamentoAtual);
 	}
 
 	public void delete(Long id)
@@ -82,6 +84,11 @@ public class LancamentoBusiness implements ILancamentoBusiness
 	//	Lancamento lancamento = em.find(Lancamento.class, id);
 	//  em.remove(lancamento);
     //	contaEJB.updateSaldoContaPorRemoverLancamento(lancamento);
+	}
+	
+	public Lancamento getById(Long id)
+	{
+		return this.lancamentoDao.selectById(id);
 	}
 
 

@@ -19,7 +19,8 @@
 		<tr>
 			<td>${lancamento.data}</td>		
 			<td>${lancamento.descricao}</td>		
-			<td>${lancamento.valor}</td>		
+			<td>${lancamento.valor}</td>
+			<td><a href="<c:url value="/lancamento/formEditarLancamento/${lancamento.id}"/>">Editar</a></td>		
 		</tr>
 		</c:forEach>
 	</tbody>

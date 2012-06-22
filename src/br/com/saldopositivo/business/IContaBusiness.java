@@ -3,6 +3,7 @@ package br.com.saldopositivo.business;
 import java.util.List;
 
 import br.com.saldopositivo.model.Conta;
+import br.com.saldopositivo.model.Lancamento;
 import br.com.saldopositivo.model.Usuario;
 
 public interface IContaBusiness 
@@ -23,7 +24,7 @@ public interface IContaBusiness
 //	
 //	public void updateSaldoContaPorRemoverLancamento(Lancamento lancamento);
 //	
-//	public void updateSaldoContaPorEdicaoLancamento(Lancamento lancamentoAtual,Lancamento lancamentoAntigo);
+	public void updateSaldoContaPorEdicaoLancamento(Lancamento lancamentoAtual,Lancamento lancamentoAntigo);
 	
 //	public void realizarTransferencia(Conta contaDebitada,Conta contaCreditada,double valor,Date data);
 	

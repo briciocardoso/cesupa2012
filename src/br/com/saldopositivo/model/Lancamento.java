@@ -34,7 +34,7 @@ public class Lancamento
 	
 	@ManyToOne
 	@JoinColumn(name="idCategoria")
-	private Categoria categoria = new Categoria();
+	private Categoria categoria;
 	
 	@Column
 	private String transacao;
@@ -103,8 +103,6 @@ public class Lancamento
 		this.transacao = "C";
 	}
 	
-	
-	
 	public boolean isDebito()
 	{
 		if (this.transacao.equals("D"))
@@ -120,7 +118,4 @@ public class Lancamento
 		
 		return false;
 	}
-	
-
-	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.saldopositivo.dao.ContaDao;
 import br.com.saldopositivo.model.Conta;
+import br.com.saldopositivo.model.Lancamento;
 import br.com.saldopositivo.model.Usuario;
 
 @Component
@@ -27,7 +28,7 @@ public class ContaBusiness implements IContaBusiness
 	{
 		return this.dao.selectAllByUsuario(usuario);
 	}
-
+	
 	public void editar(Conta conta) 
 	{
 		Conta contaAntiga = this.dao.selectById(conta);
@@ -81,31 +82,31 @@ public class ContaBusiness implements IContaBusiness
 //		this.update(conta);	
 //	}
 //	
-//	public void updateSaldoContaPorEdicaoLancamento(Lancamento lancamentoAtual,Lancamento lancamentoAntigo)
-//	{
-//		Conta conta = this.findById(lancamentoAtual.getConta().getId());
-//		
-//		double saldoAtual = conta.getSaldo();
-//		double diferenca = 0;
-//		
-//		if (lancamentoAtual.isCredito())
-//		{
-//			if (lancamentoAntigo.isDebito())
-//				diferenca = lancamentoAntigo.getValor() + lancamentoAtual.getValor();
-//			else
-//				diferenca = lancamentoAtual.getValor() - lancamentoAntigo.getValor();
-//		}else if (lancamentoAtual.isDebito())
-//		{
-//			if (lancamentoAntigo.isCredito())
-//				diferenca = - (lancamentoAntigo.getValor() + lancamentoAtual.getValor());
-//			else
-//				diferenca = lancamentoAntigo.getValor() - lancamentoAtual.getValor();
-//		}
-//		
-//		conta.setSaldo(saldoAtual+diferenca);
-//
-//		this.update(conta);	
-//	}
+	public void updateSaldoContaPorEdicaoLancamento(Lancamento lancamentoAtual,Lancamento lancamentoAntigo)
+	{
+		Conta conta = this.get(lancamentoAtual.getConta());
+		
+		double saldoAtual = conta.getSaldo();
+		double diferenca = 0;
+		
+		if (lancamentoAtual.isCredito())
+		{
+			if (lancamentoAntigo.isDebito())
+				diferenca = lancamentoAntigo.getValor() + lancamentoAtual.getValor();
+			else
+				diferenca = lancamentoAtual.getValor() - lancamentoAntigo.getValor();
+		}else if (lancamentoAtual.isDebito())
+		{
+			if (lancamentoAntigo.isCredito())
+				diferenca = - (lancamentoAntigo.getValor() + lancamentoAtual.getValor());
+			else
+				diferenca = lancamentoAntigo.getValor() - lancamentoAtual.getValor();
+		}
+		
+		conta.setSaldo(saldoAtual+diferenca);
+
+		this.editar(conta);	
+	}
 	
 //	public void realizarTransferencia(Conta contaDebitada,Conta contaCreditada,double valor,Date data)
 //	{

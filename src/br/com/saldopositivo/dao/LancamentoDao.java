@@ -25,5 +25,18 @@ public class LancamentoDao
 
 		return query.getResultList();
 	}
+	
+	public Lancamento selectById(Long id)
+	{
+		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.id = :id",Lancamento.class); 
+		query.setParameter("id",id);
+		
+		return query.getSingleResult();
+	}
+	
+	public void update(Lancamento lancamento)
+	{
+		this.entityManager.merge(lancamento);
+	}
 
 }
