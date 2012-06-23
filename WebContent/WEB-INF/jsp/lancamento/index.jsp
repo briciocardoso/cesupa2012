@@ -2,7 +2,8 @@
 
 <jsp:include page="../template/head.jsp"></jsp:include>
 
-<h2>Conta: ${conta.nome}</h2>
+<h2>Conta: ${conta.nome} - Saldo ${conta.saldo}</h2>
+
 
 <a href="<c:url value="/lancamento/formLancamento/${conta.id}"/>" class="btn">Novo Lançamento</a>
 
@@ -20,7 +21,9 @@
 			<td>${lancamento.data}</td>		
 			<td>${lancamento.descricao}</td>		
 			<td>${lancamento.valor}</td>
-			<td><a href="<c:url value="/lancamento/formEditarLancamento/${lancamento.id}"/>">Editar</a></td>		
+			<td><a href="<c:url value="/lancamento/formEditarLancamento/${lancamento.id}"/>">Editar</a></td>
+			<td><a href="<c:url value="/lancamento/excluirLancamento/${lancamento.id}"/>">Excluir</a></td>
+					
 		</tr>
 		</c:forEach>
 	</tbody>

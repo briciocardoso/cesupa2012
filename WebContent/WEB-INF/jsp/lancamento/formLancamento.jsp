@@ -26,14 +26,16 @@
 			<input type="radio" name="lancamento.transacao" value="D"/>Débito
 			
 			
-			<%-- <label>Moeda: </label>
-			<select name="conta.moeda.id">
-				<c:forEach items="${listaDeMoeda}" var="moeda"> 
-          		   <option value ="${moeda.id}"> 
-          		   		${moeda.descricao}
+			<label>Categoria:</label>
+			<select name="lancamento.categoria.id">
+				<c:forEach items="${listaCategoria}" var="categoria"> 
+          		   <option value ="${categoria.id}"> 
+          		   		${categoria.descricao}
           		    </option>  
     			</c:forEach>
-			</select> --%>
+			</select>
+			
+			<br/>
 			
 			<br/>
 			

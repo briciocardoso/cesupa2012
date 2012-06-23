@@ -30,14 +30,18 @@ public class Lancamento
 	
 	@ManyToOne
 	@JoinColumn(name="idConta")
-	private Conta conta;
+	private Conta conta = new Conta() ;
 	
 	@ManyToOne
 	@JoinColumn(name="idCategoria")
-	private Categoria categoria;
+	private Categoria categoria = new Categoria();
 	
 	@Column
 	private String transacao;
+	
+	public static String DEBITO = "D";
+	public static String CREDITO = "C";
+	
 	
 	public Long getId() {
 		return id;
@@ -93,29 +97,5 @@ public class Lancamento
 
 	public void setTransacao(String transacao) {
 		this.transacao = transacao;
-	}
-	
-	public void setTransacaoDebito() {
-		this.transacao = "D";
-	}
-	
-	public void setTransacaoCredito() {
-		this.transacao = "C";
-	}
-	
-	public boolean isDebito()
-	{
-		if (this.transacao.equals("D"))
-			return true;
-		
-		return false;
-	}
-	
-	public boolean isCredito()
-	{
-		if (this.transacao.equals("C"))
-			return true;
-		
-		return false;
 	}
 }

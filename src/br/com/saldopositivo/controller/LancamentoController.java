@@ -43,23 +43,68 @@ public class LancamentoController
 	@Path("lancamento/formLancamento/{conta.id}")
 	public void formLancamento(Conta conta)
 	{
+		result.include("listaCategoria",this.categoriaBusiness.listaCategoriaPorUsuario(this.usuarioSession.getUsuario()));
 		this.result.include("idConta",conta.getId());
 	}
 	
-	@Path("lancamento/formEditarLancamento/{id}")
-	public void formEditarLancamento(Long id)
+	@Path("lancamento/formEditarLancamento/{lancamento.id}")
+	public void formEditarLancamento(Lancamento lancamento)
 	{
-		Lancamento lancamento = this.lancamentoBusiness.getById(id);
+		Lancamento lancamentoAtual = this.lancamentoBusiness.getById(lancamento.getId());
 		
 		result.include("listaCategoria",this.categoriaBusiness.listaCategoriaPorUsuario(this.usuarioSession.getUsuario()));
-		result.include("lancamento",lancamento);
+		result.include("lancamento",lancamentoAtual);
+	}
+	
+	public void criarLancamento(Lancamento lancamento)
+	{
+		try {
+			this.lancamentoBusiness.save(lancamento);
+			this.contaBusiness.updateSaldoConta(lancamento);
+			this.result.include("success","Cadastro Realizada com Sucesso");
+			
+			Conta contaAtualizada = new Conta();
+			contaAtualizada.setId(lancamento.getConta().getId());
+			contaAtualizada.setUsuario(this.usuarioSession.getUsuario());
+			
+			this.result.redirectTo(LancamentoController.class).index(contaAtualizada);
+		} catch (Exception e) {
+			this.result.include("error","Falha no cadastro do Lancamento");
+		}
 	}
 	
 	public void editarLancamento(Lancamento lancamento)
 	{
-		this.lancamentoBusiness.update(lancamento);
+		try {
+			Lancamento lancamentoAntigo = this.lancamentoBusiness.getById(lancamento.getId());
+			this.contaBusiness.updateSaldoContaPorEdicaoLancamento(lancamento, lancamentoAntigo);
+			this.lancamentoBusiness.update(lancamento);
+			result.include("success","Atualização realizada com Sucesso");
+			result.redirectTo(LancamentoController.class).index(lancamento.getConta());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		result.redirectTo(LancamentoController.class).index(lancamento.getConta());
+	}
+	
+	@Path("lancamento/excluirLancamento/{lancamento.id}")
+	public void excluirLancamento(Lancamento lancamento)
+	{
+		Lancamento lancamentoAtual = this.lancamentoBusiness.getById(lancamento.getId());
+
+		try {
+			
+			this.lancamentoBusiness.delete(lancamentoAtual);
+			this.contaBusiness.updateSaldoContaPorRemoverLancamento(lancamentoAtual);
+			this.result.include("success","Exclusão realizada com Sucesso");
+			this.result.redirectTo(LancamentoController.class).index(lancamentoAtual.getConta());
+
+		} catch (Exception e) {
+			this.result.include("error","Falha na Exclusão do Lançamento");
+			this.result.redirectTo(LancamentoController.class).index(lancamentoAtual.getConta());
+		}
+		
 	}
 
 }

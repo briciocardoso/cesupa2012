@@ -2,6 +2,8 @@ package br.com.saldopositivo.business;
 
 import java.util.List;
 
+import org.jruby.RubyProcess.Sys;
+
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.saldopositivo.dao.ContaDao;
 import br.com.saldopositivo.model.Conta;
@@ -12,10 +14,12 @@ import br.com.saldopositivo.model.Usuario;
 public class ContaBusiness implements IContaBusiness
 {
 	private ContaDao dao;
+	private ILancamentoBusiness lancamentoBusiness;
 
-	public ContaBusiness(ContaDao dao)
+	public ContaBusiness(ContaDao dao,LancamentoBusiness lancamentoBusiness)
 	{
 		this.dao = dao;
+		this.lancamentoBusiness = lancamentoBusiness;
 	}
 
 	public void save(Conta conta) 
@@ -49,55 +53,59 @@ public class ContaBusiness implements IContaBusiness
 
 		this.dao.update(conta);
 	}
-//	
-//	public void updateSaldoConta(Lancamento lancamento)
-//	{
-//		Conta conta = this.findById(lancamento.getConta().getId());
-//		
-//		double saldoAtual = 0;
-//		
-//		if (lancamento.isDebito())
-//			saldoAtual = conta.getSaldo() - lancamento.getValor();
-//		else if (lancamento.isCredito())
-//			saldoAtual = conta.getSaldo() + lancamento.getValor();
-//
-//		conta.setSaldo(saldoAtual);
-//
-//		this.update(conta);
-//	}
-//	
-//	public void updateSaldoContaPorRemoverLancamento(Lancamento lancamento)
-//	{
-//		Conta conta = this.findById(lancamento.getConta().getId());
-//		
-//		double saldoAtual = 0;
-//		
-//		if (lancamento.isDebito())
-//			saldoAtual = conta.getSaldo() + lancamento.getValor();
-//		else if (lancamento.isCredito())
-//			saldoAtual = conta.getSaldo() - lancamento.getValor();
-//		
-//		conta.setSaldo(saldoAtual);
-//
-//		this.update(conta);	
-//	}
-//	
+	
+	
+	public void updateSaldoConta(Lancamento lancamento)
+	{
+		Conta conta = this.dao.selectByIdConta(lancamento.getConta());
+		
+		double saldoAtual = 0;
+		
+		if (this.lancamentoBusiness.isDebito(lancamento))
+			saldoAtual = conta.getSaldo() - lancamento.getValor();
+		
+		else if (this.lancamentoBusiness.isCredito(lancamento))
+			saldoAtual = conta.getSaldo() + lancamento.getValor();
+
+		conta.setSaldo(saldoAtual);
+
+		this.dao.update(conta);
+	}
+	
+	public void updateSaldoContaPorRemoverLancamento(Lancamento lancamento)
+	{
+		Conta conta = this.dao.selectByIdConta(lancamento.getConta());
+		
+		double saldoAtual = 0;
+		
+		if (this.lancamentoBusiness.isDebito(lancamento))
+			
+			saldoAtual = conta.getSaldo() + lancamento.getValor();
+		
+		else if (this.lancamentoBusiness.isCredito(lancamento))
+			saldoAtual = conta.getSaldo() - lancamento.getValor();
+		
+		conta.setSaldo(saldoAtual);
+
+		this.dao.update(conta);	
+	}
+	
 	public void updateSaldoContaPorEdicaoLancamento(Lancamento lancamentoAtual,Lancamento lancamentoAntigo)
 	{
-		Conta conta = this.get(lancamentoAtual.getConta());
+		Conta conta = this.getById(lancamentoAtual.getConta());
 		
 		double saldoAtual = conta.getSaldo();
 		double diferenca = 0;
 		
-		if (lancamentoAtual.isCredito())
+		if (this.lancamentoBusiness.isCredito(lancamentoAtual))
 		{
-			if (lancamentoAntigo.isDebito())
+			if (this.lancamentoBusiness.isDebito(lancamentoAntigo))
 				diferenca = lancamentoAntigo.getValor() + lancamentoAtual.getValor();
 			else
 				diferenca = lancamentoAtual.getValor() - lancamentoAntigo.getValor();
-		}else if (lancamentoAtual.isDebito())
+		}else if (this.lancamentoBusiness.isDebito(lancamentoAtual))
 		{
-			if (lancamentoAntigo.isCredito())
+			if (this.lancamentoBusiness.isCredito(lancamentoAntigo))
 				diferenca = - (lancamentoAntigo.getValor() + lancamentoAtual.getValor());
 			else
 				diferenca = lancamentoAntigo.getValor() - lancamentoAtual.getValor();
@@ -148,6 +156,11 @@ public class ContaBusiness implements IContaBusiness
 	public Conta get(Conta conta) 
 	{
 		return this.dao.selectById(conta);
+	}
+	
+	public Conta getById(Conta conta)
+	{
+		return this.dao.selectByIdConta(conta);
 	}
 	
 	

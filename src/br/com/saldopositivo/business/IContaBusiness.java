@@ -19,11 +19,10 @@ public interface IContaBusiness
 
 	public Conta get(Conta conta);
 	
+	public void updateSaldoConta(Lancamento lancamento);
+
+	public void updateSaldoContaPorRemoverLancamento(Lancamento lancamento);
 	
-//	public void updateSaldoConta(Lancamento lancamento);
-//	
-//	public void updateSaldoContaPorRemoverLancamento(Lancamento lancamento);
-//	
 	public void updateSaldoContaPorEdicaoLancamento(Lancamento lancamentoAtual,Lancamento lancamentoAntigo);
 	
 //	public void realizarTransferencia(Conta contaDebitada,Conta contaCreditada,double valor,Date data);

@@ -14,12 +14,16 @@ public interface ILancamentoBusiness
 
 	void update(Lancamento lancamento);
 	
-	void delete(Long id);
+	void delete(Lancamento lancamento);
 	
 	void criarLancamentoDebito(Conta conta,double valor,Date data,String descricao);
 	
 	void criarLancamentoCredito(Conta conta,double valor,Date data,String descricao);
 	
 	Lancamento getById(Long id);
+	
+	boolean isDebito(Lancamento lancamento);
+	
+	boolean isCredito(Lancamento lancamento);	
 	
 }

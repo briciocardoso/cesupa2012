@@ -38,5 +38,15 @@ public class LancamentoDao
 	{
 		this.entityManager.merge(lancamento);
 	}
+	
+	public void save(Lancamento lancamento)
+	{
+		this.entityManager.persist(lancamento);
+	}
+	
+	public void delete(Lancamento lancamento)
+	{
+		this.entityManager.remove(lancamento);
+	}
 
 }

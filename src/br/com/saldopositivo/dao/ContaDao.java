@@ -46,6 +46,14 @@ public class ContaDao
 		return (Conta) query.getSingleResult();
 	}
 	
+	public Conta selectByIdConta(Conta conta)
+	{
+		Query query = this.entityManager.createQuery("SELECT c FROM Conta c WHERE c.id = :idConta", Conta.class);
+		query.setParameter("idConta",conta.getId());
+		
+		return (Conta) query.getSingleResult();
+	}
+	
 	public void delete(Conta conta)
 	{
 		this.entityManager.remove(conta);
