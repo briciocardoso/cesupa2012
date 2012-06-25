@@ -3,8 +3,6 @@ package br.com.saldopositivo.business;
 import java.util.Date;
 import java.util.List;
 
-import org.jruby.ast.LambdaNode;
-
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.saldopositivo.dao.LancamentoDao;
 import br.com.saldopositivo.model.Categoria;

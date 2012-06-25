@@ -11,6 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import jruby.joda.time.LocalDate;
+
+import br.com.caelum.vraptor.Convert;
+
 @Entity
 public class Lancamento 
 {
