@@ -2,12 +2,11 @@ package br.com.saldopositivo.business;
 
 import java.util.List;
 
-import org.jruby.RubyProcess.Sys;
-
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.saldopositivo.dao.ContaDao;
 import br.com.saldopositivo.model.Conta;
 import br.com.saldopositivo.model.Lancamento;
+import br.com.saldopositivo.model.Transferencia;
 import br.com.saldopositivo.model.Usuario;
 
 @Component
@@ -116,17 +115,23 @@ public class ContaBusiness implements IContaBusiness
 		this.editar(conta);	
 	}
 	
-//	public void realizarTransferencia(Conta contaDebitada,Conta contaCreditada,double valor,Date data)
-//	{
-//		contaDebitada = findById(contaDebitada.getId());
-//		contaCreditada = findById(contaCreditada.getId());
-//		
-//		String descricaoLancamentoDebito = "TransferÍncia para Conta: " + contaCreditada.getNome();
-//		String descricaoLancamentoCredito = "TransferÍncia da Conta: " + contaDebitada.getNome();
-//		
-//		lancamentoEJB.criarLancamentoDebito(contaDebitada, valor, data,descricaoLancamentoDebito);
-//		lancamentoEJB.criarLancamentoCredito(contaCreditada, valor, data,descricaoLancamentoCredito);
-//	}
+	public void realizarTransferencia(Transferencia transferencia)
+	{
+		transferencia.setContaDebito(this.getById(transferencia.getContaDebito()));
+		transferencia.setContaCredito(this.getById(transferencia.getContaCredito()));
+		
+		String descricaoLancamentoDebito = "Transferência para Conta: " + transferencia.getContaCredito().getNome();
+		String descricaoLancamentoCredito = "Transferência da Conta: " + transferencia.getContaDebito().getNome(); 
+
+		Lancamento lancamentoCredito = this.lancamentoBusiness.factoryLancamentoTransferenciaCredito(transferencia.getContaCredito(), transferencia.getValor(), transferencia.getData(), descricaoLancamentoCredito);
+		Lancamento lancamentoDebito = this.lancamentoBusiness.factoryLancamentoTransferenciaDebito(transferencia.getContaDebito(), transferencia.getValor(), transferencia.getData(), descricaoLancamentoDebito);
+		
+		this.lancamentoBusiness.criarLancamento(lancamentoCredito);
+		this.updateSaldoConta(lancamentoCredito);
+		
+		this.lancamentoBusiness.criarLancamento(lancamentoDebito);
+		this.updateSaldoConta(lancamentoDebito);
+	}
 	
 
 //	public List<Conta> findAllByUsuario(Long idUsuario) 

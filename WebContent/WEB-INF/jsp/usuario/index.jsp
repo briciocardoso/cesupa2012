@@ -19,6 +19,7 @@
 		<a href="<c:url value="/conta/formEditaConta/${conta.id}"/>">Editar Conta</a> - 
 		<a href="<c:url value="/conta/excluir/${conta.id}"/>" onclick="return confirm('Confirma exclusão da Conta ?')">Excluir Conta</a> - 
 		<a href="<c:url value="/lancamento/index/${conta.id}"/>">Lançamentos</a>
+		<a href="<c:url value="/conta/formTransferencia"/> "> Transferecia </a>
 		<br/>
 
 		</div>

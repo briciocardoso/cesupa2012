@@ -16,9 +16,11 @@ public interface ILancamentoBusiness
 	
 	void delete(Lancamento lancamento);
 	
-	void criarLancamentoDebito(Conta conta,double valor,Date data,String descricao);
+	void criarLancamento(Lancamento lancamento);
 	
-	void criarLancamentoCredito(Conta conta,double valor,Date data,String descricao);
+	Lancamento factoryLancamentoTransferenciaCredito(Conta conta,double valor,Date data,String descricao);
+	
+	Lancamento factoryLancamentoTransferenciaDebito(Conta conta,double valor,Date data,String descricao);
 	
 	Lancamento getById(Long id);
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.saldopositivo.model.Conta;
 import br.com.saldopositivo.model.Lancamento;
+import br.com.saldopositivo.model.Transferencia;
 import br.com.saldopositivo.model.Usuario;
 
 public interface IContaBusiness 
@@ -25,7 +26,7 @@ public interface IContaBusiness
 	
 	public void updateSaldoContaPorEdicaoLancamento(Lancamento lancamentoAtual,Lancamento lancamentoAntigo);
 	
-//	public void realizarTransferencia(Conta contaDebitada,Conta contaCreditada,double valor,Date data);
+	public void realizarTransferencia(Transferencia transferencia);
 	
 	//public List<Conta> findAllByUsuario(Long idUsuario);
 	

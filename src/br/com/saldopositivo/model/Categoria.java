@@ -18,6 +18,8 @@ public class Categoria {
 	@ManyToOne
 	@JoinColumn(name="idUsuario")
 	private Usuario usuario;
+	
+	public static long TRANSFERENCIA = 3;
 
 	public Long getId() {
 		return id;

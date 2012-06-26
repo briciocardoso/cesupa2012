@@ -27,39 +27,45 @@ public class LancamentoBusiness implements ILancamentoBusiness
 		return this.lancamentoDao.selectAllByConta(lancamento);
 	}
 
-	public void criarLancamentoDebito(Conta conta,double valor,Date data,String descricao)
+	public void criarLancamento(Lancamento lancamento)
 	{
-		Lancamento lancamento = new Lancamento();
-
-		Categoria categoria = new Categoria();
-		categoria.setId((long) 3);
-
-		lancamento.setCategoria(categoria);
-		lancamento.setConta(conta);
-		lancamento.setData(data);
-		lancamento.setValor(valor);
-		lancamento.setDescricao(descricao);
-		lancamento.setTransacao(Lancamento.DEBITO);
-
 		this.save(lancamento);
 	}
 
-	public void criarLancamentoCredito(Conta conta,double valor,Date data,String descricao)
+	public Lancamento factoryLancamentoTransferenciaCredito(Conta conta,double valor,Date data,String descricao)
 	{
-		Lancamento lancamento = new Lancamento();
-
-		Categoria categoria = new Categoria();
-		categoria.setId((long) 3);
-
-		lancamento.setConta(conta);
-		lancamento.setCategoria(categoria);
-		lancamento.setData(data);
-		lancamento.setValor(valor);
-		lancamento.setDescricao(descricao);
+		Lancamento lancamento = this.getLancamentoTransferencia(conta, valor, data, descricao);
 		lancamento.setTransacao(Lancamento.CREDITO);
-
-		this.save(lancamento);
+		
+		return lancamento;
 	}
+	
+	private Lancamento getLancamentoTransferencia(Conta conta,double valor,Date data,String descricao)
+	{
+		Lancamento lancamento = new Lancamento();
+
+		Categoria categoria = new Categoria();
+		categoria.setId(Categoria.TRANSFERENCIA);
+
+		lancamento.setConta(conta);
+		lancamento.setCategoria(categoria);
+		lancamento.setData(data);
+		lancamento.setValor(valor);
+		lancamento.setDescricao(descricao);
+		
+		return lancamento;
+		
+	}
+	
+	public Lancamento factoryLancamentoTransferenciaDebito(Conta conta,double valor,Date data,String descricao)
+	{
+		Lancamento lancamento = this.getLancamentoTransferencia(conta, valor, data, descricao);
+		lancamento.setTransacao(Lancamento.DEBITO);
+		
+		return lancamento;
+	}
+	
+	
 
 	public void save(Lancamento lancamento) 
 	{

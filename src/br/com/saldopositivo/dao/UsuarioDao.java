@@ -2,7 +2,6 @@ package br.com.saldopositivo.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.saldopositivo.model.Usuario;
@@ -17,6 +16,16 @@ public class UsuarioDao {
 
 	public void salvar(Usuario usuario) {
 		this.getEntityManager().persist(usuario);
+	}
+	
+	public void editar(Usuario usuario){
+		
+		try {
+			this.getEntityManager().merge(usuario);
+		} catch (Exception e) {
+			this.getEntityManager().getTransaction().rollback();
+			e.printStackTrace();
+		}
 	}
 
 	public Usuario selectUsuarioByEmailSenha(Usuario usuario) {

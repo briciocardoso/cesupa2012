@@ -11,6 +11,7 @@ import br.com.saldopositivo.business.IContaBusiness;
 import br.com.saldopositivo.business.IMoedaBusiness;
 import br.com.saldopositivo.business.MoedaBusiness;
 import br.com.saldopositivo.model.Conta;
+import br.com.saldopositivo.model.Transferencia;
 
 @Resource
 public class ContaController 
@@ -33,7 +34,18 @@ public class ContaController
 	{
 		return this.contaBusiness.getAllContasPorUsuario(this.usuarioSession.getUsuario());
 	}
-
+	
+	public void formTransferencia()
+	{
+		this.result.include("listaDeConta",this.getAllContaUsuario());
+	}
+	
+	public void criarTransferencia(Transferencia transferencia)
+	{
+		this.contaBusiness.realizarTransferencia(transferencia);
+		this.result.redirectTo(UsuarioController.class).index();
+	}
+	
 	public void formConta()
 	{
 		this.result.include("listaDeMoeda",this.moedaBusiness.getAllMoeda());
