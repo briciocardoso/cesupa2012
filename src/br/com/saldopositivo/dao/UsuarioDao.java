@@ -1,6 +1,7 @@
 package br.com.saldopositivo.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -23,9 +24,33 @@ public class UsuarioDao {
 		try {
 			this.getEntityManager().merge(usuario);
 		} catch (Exception e) {
-			this.getEntityManager().getTransaction().rollback();
 			e.printStackTrace();
 		}
+	}
+	
+	public void tracaSenha(Usuario usuario){
+		try {
+			this.entityManager.merge(usuario);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Usuario buscaUsuarioPorEmail(String email){
+		
+		try {
+			Query query = entityManager.createQuery("Select u From Usuario u Where u.email = :email");
+			query.setParameter("email", email);
+			return (Usuario)query.getSingleResult();
+		} catch (NoResultException nre) {
+			this.getEntityManager().getTransaction().rollback();
+			nre.printStackTrace();
+			throw new RuntimeException("Usuario não encontrado para esse email descrito");
+		}catch(RuntimeException re){
+			re.getMessage();
+			re.printStackTrace();
+		}
+		return null;
 	}
 
 	public Usuario selectUsuarioByEmailSenha(Usuario usuario) {

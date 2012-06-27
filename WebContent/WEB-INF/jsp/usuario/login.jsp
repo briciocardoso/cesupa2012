@@ -50,7 +50,8 @@
 			
 			<br/>
 			
-			<a href="<c:url value="/usuario/formCriarAcesso"/>">Criar acesso ao Saldo Positivo</a>
+			<a href="<c:url value="/usuario/formCriarAcesso"/>">Criar acesso ao Saldo Positivo</a><br>
+			<a href="<c:url value="/usuario/formSenha" />">Esqueceu sua senha ?</a>
 			
 		</form>
 	

@@ -10,4 +10,6 @@ public interface IUsuarioBusiness {
 	
 	public Usuario autenticarUsuario(Usuario usuario);
 	
+	public Usuario buscaUsuarioPorEmail(String email);
+	
 }
