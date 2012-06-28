@@ -1,7 +1,9 @@
 package br.com.saldopositivo.controller;
 
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.saldopositivo.autenticator.Public;
 import br.com.saldopositivo.autenticator.UsuarioSession;
 import br.com.saldopositivo.business.UsuarioBusiness;
 import br.com.saldopositivo.helper.EnvioDeEmail;
@@ -27,15 +29,31 @@ public class UsuarioController {
 		this.contaController = contaController;
 		this.envioDeEmail = envioDeEmail;
 	}
-
+	
+	@Public
 	public void formCriarAcesso() {
 
 	}
 	
+	@Public
 	public void formSenha(){
 		
 	}
 	
+	public void formEdita(){
+		
+		Usuario usuario = usuarioSession.getUsuario();
+		result.include("usuario", usuario);
+	}
+	
+	public void editar(Usuario usuario){
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + usuario.getNome());
+		this.usuarioBusiness.editar(usuario);
+		this.usuarioSession.setUsuario(usuario);
+		result.redirectTo(this).index();
+	}
+	
+	@Public
 	public void sendEmailSenha(String email){
 		
 		Usuario usuarioLocalizado = usuarioBusiness.buscaUsuarioPorEmail(email);
@@ -48,15 +66,13 @@ public class UsuarioController {
 	public void index() {
 		result.include("listaContas", this.contaController.getAllContaUsuario());
 	}
-
+	
+	@Public
 	public void login() {
 
 	}
 
-	public void editar(Usuario usuario) {
-		this.usuarioBusiness.editar(usuario);
-	}
-
+	@Public
 	public void realizarLogin(Usuario usuario) {
 
 		Usuario usuarioAutenticado = this.usuarioBusiness.autenticarUsuario(usuario);
@@ -67,7 +83,8 @@ public class UsuarioController {
 		} else
 			this.result.redirectTo(UsuarioController.class).login();
 	}
-
+	
+	@Public
 	public void criarAcesso(Usuario usuario) {
 		this.usuarioBusiness.salvar(usuario);
 		result.include("mensagem", "Bem vindo ao Saldo");

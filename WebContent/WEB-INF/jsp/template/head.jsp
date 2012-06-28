@@ -20,7 +20,7 @@
 	<li><a href="/saldopositivo/usuario/index">Home</a></li>
 	<li><a>Contas</a></li>
 	<li><a href="/saldopositivo/categoria/formCategoria">Categorias</a></li>
-	<li><a>Usuário</a></li>
+	<li><a href="/saldopositivo/usuario/formEdita">Usuário</a></li>
 	<li><a href="/saldopositivo/usuario/sair">Sair</a></li>
 </ul>
 
