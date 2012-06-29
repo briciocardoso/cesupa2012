@@ -18,3 +18,13 @@
 .boxCategoria{
 	width: 300px;
 }
+
+.positivo
+{
+	color: green;
+}
+
+.negativo
+{
+	color: red;	
+}

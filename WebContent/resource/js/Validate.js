@@ -142,8 +142,8 @@ function getValorEntreParentese(string)
 function showError(campo,mensagem)
 {
 	var element = document.getElementById('messages');
+	element.setAttribute("class","alert alert-error");
 	element.innerHTML = mensagem;
-
 	campo.focus();
 }
 

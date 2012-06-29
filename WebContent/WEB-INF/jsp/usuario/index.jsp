@@ -10,16 +10,21 @@
 	
 	<h2>Suas contas</h2>
 	
+	<c:if test="${empty(listaContas)}">
+		<div class="alert alert-error">
+			Não Existem Contas Cadastradas.
+		</div>
+	</c:if>
+	
 	<c:forEach items="${listaContas}" var="conta">
 	
-		<div class="boxConta">
+		<div class="well">
 	
 		<h4>${conta.nome}</h4>
 		<div>Saldo Atual: ${conta.saldo}</div>
 		<a href="<c:url value="/conta/formEditaConta/${conta.id}"/>">Editar Conta</a> - 
 		<a href="<c:url value="/conta/excluir/${conta.id}"/>" onclick="return confirm('Confirma exclusão da Conta ?')">Excluir Conta</a> - 
 		<a href="<c:url value="/lancamento/index/${conta.id}"/>">Lançamentos</a>
-		<a href="<c:url value="/conta/formTransferencia"/> "> Transferecia </a>
 		<br/>
 
 		</div>

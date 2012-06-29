@@ -2,6 +2,17 @@
 
 <jsp:include page="../template/head.jsp"></jsp:include>
 
+	<h2>Transferências entre Contas</h2>
+	<hr/>
+	
+	<c:if test="${empty(listaDeConta)}">
+		<div class="alert alert-error">
+			Não Existem Contas Cadastradas para a realização de Transferência.
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty(listaDeConta)}">
+	
 	<form  action='<c:url value="/conta/criarTransferencia"/>' method="post">
 		 
 		<label>Conta Debito</label>
@@ -29,12 +40,14 @@
 		<input type="text" name="transferencia.valor" size="10"  />
 		<br/>
 		<label>Data</label>
-		<input type="t" name="transferencia.data" size="10" />
+		<input type="text" name="transferencia.data" size="10" />
 		
 		<br/>
 		
 		<input type="submit" value="Salvar" />
 	
 	</form>
+	
+	</c:if>
 
 <jsp:include page="../template/footer.jsp"></jsp:include>

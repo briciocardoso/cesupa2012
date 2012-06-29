@@ -2,7 +2,8 @@
 
 <jsp:include page="../template/head.jsp"></jsp:include>
 
-<h3>Edite seus dados</h3>
+<h2>Edite seus dados</h2>
+<hr/>
 
 	<form action="../usuario/editar" method="post">
 		<label>Nome: </label>
@@ -16,7 +17,7 @@
 		<p/>
 		
 		<input type="hidden" name="usuario.id" value="${usuario.id}" /> 
-		<input type="submit" value="Editar"/>		
+		<input type="submit" class="btn-success" value="Salvar"/>		
 	</form>
 
 <jsp:include page="../template/footer.jsp"></jsp:include>

@@ -2,17 +2,22 @@
 
 <jsp:include page="../template/head.jsp"></jsp:include>
 
-	<h1>Categoria</h1>
+	<h2>Categoria</h2>
+	<hr/>
 	
-	<br/>
-	
-	<form action='<c:url value="/categoria/criarCategoria" />' method="post"> 
+	<form action='<c:url value="/categoria/criarCategoria" />' method="post">
 		<label>Descrição: </label>
 		<input type="text" name="categoria.descricao" size="70" />
-		<input type="submit" value="Criar">
+		<input type="submit" class="btn-success" value="Salvar">
 	</form>
 	
 	<h3>Suas categorias:</h3>
+	
+	<c:if test="${empty(listaCateriaPorUsuario)}">
+		<div class="alert alert-error">
+			Não Existem Categorias Cadastradas.
+		</div>
+	</c:if>
 	
 	<c:forEach items="${listaCateriaPorUsuario}" var="categoria" >
 	

@@ -1,8 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="../template/head.jsp"></jsp:include>
 		
-		<h1>Crie sua conta</h1>
+		<h2>Crie sua conta</h2>
 		<hr/>
+		
+		<div id="messages"></div>
 		
 		<form action='<c:url value="/conta/criarConta"/>'  method="post" name="form">
 		

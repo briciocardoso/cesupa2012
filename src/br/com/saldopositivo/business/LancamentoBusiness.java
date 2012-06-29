@@ -74,9 +74,8 @@ public class LancamentoBusiness implements ILancamentoBusiness
 
 	public void update(Lancamento lancamentoAtual)
 	{
-		Lancamento lancamentoAntigo = this.getById(lancamentoAtual.getId());
-
-		//this.contaBusiness.updateSaldoContaPorEdicaoLancamento(lancamentoAtual, lancamentoAntigo);
+//		Lancamento lancamentoAntigo = this.getById(lancamentoAtual.getId());
+//		this.contaBusiness.updateSaldoContaPorEdicaoLancamento(lancamentoAtual, lancamentoAntigo);
 
 		this.lancamentoDao.update(lancamentoAtual);
 	}

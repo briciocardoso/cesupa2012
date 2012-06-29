@@ -22,14 +22,14 @@
 			<br/>
 			
 			<label>Transação:</label>
-			<input type="radio" name="lancamento.transacao" value="C"/>Crédito
-			<input type="radio" name="lancamento.transacao" value="D"/>Débito
+			<input type="radio" name="lancamento.transacao" value="C" ${(lancamento.transacao eq 'C')? "checked" : ""}/>Crédito
+			<input type="radio" name="lancamento.transacao" value="D" ${(lancamento.transacao eq 'D')? "checked" : ""}/>Débito
 			
 			<label>Categoria:</label>
 			
 			<select name="lancamento.categoria.id">
 				<c:forEach items="${listaCategoria}" var="categoria"> 
-          		   <option value ="${categoria.id}"> 
+          		   <option value ="${categoria.id}" ${(lancamento.categoria.id eq categoria.id)? "selected" : ""}> 
           		   		${categoria.descricao}
           		    </option>  
     			</c:forEach>

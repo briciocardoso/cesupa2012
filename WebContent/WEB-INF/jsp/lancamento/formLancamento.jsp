@@ -3,6 +3,9 @@
 <jsp:include page="../template/head.jsp"></jsp:include>
 	
 	<h2>Novo Lançamento</h2>
+	<hr/>
+	
+	<div id="messages"></div>
 	
 	<form action='<c:url value="/lancamento/criarLancamento"/>'  method="post" name="form">
 		
