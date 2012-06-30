@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>  
 
 <jsp:include page="../template/head.jsp"></jsp:include>
 	
@@ -22,7 +23,7 @@
 		<div class="well">
 	
 		<h4>${conta.nome}</h4>
-		<div>Saldo Atual: <span class="${(conta.saldo >= 0)? "positivo" : "negativo"}">${conta.saldo}</span></div>
+		<div>Saldo Atual: <span class="${(conta.saldo >= 0)? "positivo" : "negativo"}"><fmt:formatNumber minFractionDigits="2" type="number" value="${conta.saldo}"/></span></div>
 		<hr/>
 		<div class="btn-group">
 		<a class="btn-mini btn-inverse" href="<c:url value="/conta/formEditaConta/${conta.id}"/>">
@@ -38,6 +39,7 @@
 		</div>
 	
 	</c:forEach>
+
 
 	
 <jsp:include page="../template/footer.jsp"></jsp:include>

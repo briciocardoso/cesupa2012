@@ -4,7 +4,7 @@
 
 <jsp:include page="../template/head.jsp"></jsp:include>
 
-<h2>Conta: ${conta.nome} - Saldo <span class="${(conta.saldo >=0)? "positivo" : "negativo" }">${conta.saldo}</span></h2>
+<h2>Conta: ${conta.nome} - Saldo <span class="${(conta.saldo >=0)? "positivo" : "negativo" }"><fmt:formatNumber minFractionDigits="2" type="number" value="${conta.saldo}"/></span></h2>
 
 <a href="<c:url value="/lancamento/formLancamento/${conta.id}"/>" class="btn btn-small btn-primary">
 <i class="icon-plus"></i> Novo Lançamento</a>
@@ -48,8 +48,8 @@
 			<td><fmt:formatDate value="${lancamento.data}" pattern="dd/MM/yyyy" /></td>
 			<td>${lancamento.descricao}</td>	
 			<td>${lancamento.categoria.descricao}</td>	
-			<td class="${(lancamento.transacao == 'C')? "positivo" : "negativo"}">${lancamento.valor}</td>
-			<td class="${(saldoLancamento >= 0)? "positivo" : "negativo"}"">${saldoLancamento}</td>
+			<td class="${(lancamento.transacao == 'C')? "positivo" : "negativo"}"><fmt:formatNumber minFractionDigits="2" type="number" value="${lancamento.valor}"/></td>
+			<td class="${(saldoLancamento >= 0)? "positivo" : "negativo"}""><fmt:formatNumber minFractionDigits="2" type="number" value="${saldoLancamento}"/></td>
 			<td><a class="btn btn-inverse btn-mini" href="<c:url value="/lancamento/formEditarLancamento/${lancamento.id}"/>">Editar</a></td>
 			<td><a class="btn btn-danger btn-mini" href="<c:url value="/lancamento/excluirLancamento/${lancamento.id}"/>" onclick="return confirm('Confirma a Exclusão do Lançamento ?')">Excluir</a></td>
 					

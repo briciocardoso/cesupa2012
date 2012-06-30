@@ -40,10 +40,10 @@
 		<br/>
 		
 		<label>Valor:</label>
-		<input type="text" name="transferencia.valor" size="10" title="Valor" validate="required;number;"  />
+		<input type="text" name="transferencia.valor" size="10" title="Valor" validate="required;number;" onkeyup="maskNumber(this,'','.');"/>
 		<br/>
 		<label>Data</label>
-		<input type="text" name="transferencia.data" size="10" title="Data" validate="required;" />
+		<input type="text" name="transferencia.data" size="10" title="Data" validate="required;" onkeyup="maskDate(this);" />
 		
 		<br/>
 		
@@ -57,4 +57,6 @@
 	</c:if>
 
 <script type="text/javascript" src="/saldopositivo/resource/js/Validate.js"></script>
+<script type="text/javascript" src="/saldopositivo/resource/js/Action.js"></script>
+
 <jsp:include page="../template/footer.jsp"></jsp:include>

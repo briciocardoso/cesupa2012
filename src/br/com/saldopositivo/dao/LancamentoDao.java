@@ -20,7 +20,7 @@ public class LancamentoDao
 	
 	public List<Lancamento> selectAllByConta(Lancamento lancamento)
 	{
-		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.conta.id = :idConta ORDER BY l.data",Lancamento.class); 
+		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.conta.id = :idConta ORDER BY l.data ASC",Lancamento.class); 
 		query.setParameter("idConta", lancamento.getConta().getId());
 
 		return query.getResultList();
