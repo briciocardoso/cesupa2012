@@ -10,6 +10,8 @@ public interface ILancamentoBusiness
 {
 	List<Lancamento> getAllByConta(Conta conta);
 	
+	List<Lancamento> getAllByContaMesAtual(Conta conta);
+	
 	void save(Lancamento lancamento);
 
 	void update(Lancamento lancamento);

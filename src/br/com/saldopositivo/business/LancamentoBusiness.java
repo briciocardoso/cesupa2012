@@ -26,6 +26,14 @@ public class LancamentoBusiness implements ILancamentoBusiness
 
 		return this.lancamentoDao.selectAllByConta(lancamento);
 	}
+	
+	public List<Lancamento> getAllByContaMesAtual(Conta conta)
+	{
+		Lancamento lancamento = new Lancamento();
+		lancamento.setConta(conta);
+		
+		return this.lancamentoDao.selectAllByContaMesAtual(lancamento);
+	}
 
 	public void criarLancamento(Lancamento lancamento)
 	{

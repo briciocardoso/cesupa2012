@@ -42,8 +42,14 @@ public class ContaController
 	
 	public void criarTransferencia(Transferencia transferencia)
 	{
-		this.contaBusiness.realizarTransferencia(transferencia);
-		this.result.redirectTo(UsuarioController.class).index();
+//		try {
+//			this.contaBusiness.realizarTransferencia(transferencia);
+//			this.result.include("success","Transferência realizada com Sucesso");
+//			this.result.redirectTo(UsuarioController.class).index();
+//			
+//		} catch (Exception e) {
+//			this.result.include("error","Falha na Transferência");
+//		}
 	}
 	
 	public void formConta()

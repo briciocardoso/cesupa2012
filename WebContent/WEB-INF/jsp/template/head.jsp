@@ -23,6 +23,7 @@
 	<li><a href="/saldopositivo/usuario/formEdita">Usuário</a></li>
 	<li><a href="/saldopositivo/usuario/sair">Sair</a></li>
 </ul>
+<div style="float: right;">Usuário: ${usuarioSession.usuario.email}</div>
 
 </div>
 </div>

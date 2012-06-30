@@ -26,6 +26,15 @@ public class LancamentoDao
 		return query.getResultList();
 	}
 	
+	public List<Lancamento> selectAllByContaMesAtual(Lancamento lancamento)
+	{
+		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.conta.id = :idConta AND MONTH(l.data) = MONTH(NOW()) ORDER BY l.data",Lancamento.class); 
+		query.setParameter("idConta", lancamento.getConta().getId());
+
+		return query.getResultList();
+
+	}
+	
 	public Lancamento selectById(Long id)
 	{
 		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.id = :id",Lancamento.class); 

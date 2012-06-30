@@ -45,7 +45,9 @@
 			<input type="hidden" value="${idConta}" name="lancamento.conta.id"/>			
 			
 			
-			<input type="submit" value="Salvar" onclick="return isValida();" class="btn-success" />			
+			<input type="submit" value="Salvar" onclick="return isValida();" class="btn-success" />
+			<input type="button" value="Voltar" onclick="history.back();" class="btn-inverse" />
+						
 			
 		</form>
 		

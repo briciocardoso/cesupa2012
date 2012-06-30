@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../template/head.jsp"></jsp:include>
 
-	<h2>Atualizar Conta</h2>
+	<h2>Editar Conta</h2>
 	<hr />
 			
 	<div id="messages"></div>
@@ -26,7 +26,11 @@
 
 	<input type="hidden" name="conta.usuario.id" value="${conta.usuario.id}" /> 
 	<input type="hidden" name="conta.id" value="${conta.id}" /> 
-	<input type="submit" value="Salvar"	onclick="return isValida();" />
+	
+	<br/>
+	
+	<input class="btn btn-success" type="submit" value="Salvar"	onclick="return isValida();" />
+	<input class="btn btn-inverse" type="button" value="Voltar"	onclick="window.back();" />
 
 </form>
 

@@ -11,7 +11,7 @@
 		<input type="submit" class="btn-success" value="Salvar">
 	</form>
 	
-	<h3>Suas categorias:</h3>
+	<h3>Minhas Categorias:</h3>
 	
 	<c:if test="${empty(listaCateriaPorUsuario)}">
 		<div class="alert alert-error">
@@ -21,13 +21,11 @@
 	
 	<c:forEach items="${listaCateriaPorUsuario}" var="categoria" >
 	
-		<div class="boxCategoria">
+		<div class="well">
 			<div>${categoria.descricao}</div>
 			<a href="<c:url value="/categoria/formEditaCategoria/${categoria.id}"/>">Editar</a> - 
 			<a href='<c:url value="/categoria/deletar/${categoria.id}"/>' onclick="return confirm('Confirma exclusão da categoria?')">Excluir</a>
 		</div>
-
-		<br/>
 	
 	</c:forEach>
 	

@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="../resource/css/960gs.css" />
 		<link rel="stylesheet" type="text/css" href="../resource/css/bootstrap.css" />
 		
-		<title>Bem Vindo</title>
+		<title>Saldo Positivo</title>
 	</head>
 	
 <body>
@@ -19,22 +19,22 @@
 
 	<div class="grid_12">
 
-	<h1>Bem Vindo ao Saldo</h1>
+	<h1>Bem Vindo ao Saldo Positivo</h1>
 	
 	<hr/>
 	
-	<h3>Realize seu Login</h3>
-
 	</div>
 	
 	<div class="clear"></div>
 	
-	<div class="grid_4 prefix_3">
+	<div class="grid_4 prefix_4">
 	
 		<div id="messages"></div>
 		
-		<form action='<c:url value="/usuario/realizarLogin"/>' name="form" method="post">
+		<div class="well">
+		<h4>Realize o seu login</h4>
 		
+		<form action='<c:url value="/usuario/realizarLogin"/>' name="form" method="post">
 		
 			<label>Email</label>
 			<input type="text" name="usuario.email" size="70" title="Email" validate="required;email;" />
@@ -54,6 +54,8 @@
 			<a href="<c:url value="/usuario/formSenha" />">Esqueceu sua senha ?</a>
 			
 		</form>
+		
+		</div>
 	
 	</div>
 	

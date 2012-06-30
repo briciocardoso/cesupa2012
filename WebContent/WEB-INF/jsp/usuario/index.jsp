@@ -4,11 +4,12 @@
 	
 	<h1>Bem Vindo ao Saldo Positivo</h1>
 	<hr/>
-	Usuário: ${usuarioSession.usuario.email}
 	
-	<a href='<c:url value="/conta/formConta"/>' class="btn"> Crie sua conta </a>
+	<a href='<c:url value="/conta/formConta"/>' class="btn btn-small btn-primary">
+	<i class="icon-plus"></i> Crie sua conta 
+	</a>
 	
-	<h2>Suas contas</h2>
+	<h2>Minhas contas</h2>
 	
 	<c:if test="${empty(listaContas)}">
 		<div class="alert alert-error">
@@ -21,11 +22,18 @@
 		<div class="well">
 	
 		<h4>${conta.nome}</h4>
-		<div>Saldo Atual: ${conta.saldo}</div>
-		<a href="<c:url value="/conta/formEditaConta/${conta.id}"/>">Editar Conta</a> - 
-		<a href="<c:url value="/conta/excluir/${conta.id}"/>" onclick="return confirm('Confirma exclusão da Conta ?')">Excluir Conta</a> - 
-		<a href="<c:url value="/lancamento/index/${conta.id}"/>">Lançamentos</a>
-		<br/>
+		<div>Saldo Atual: <span class="${(conta.saldo >= 0)? "positivo" : "negativo"}">${conta.saldo}</span></div>
+		<hr/>
+		<div class="btn-group">
+		<a class="btn-mini btn-inverse" href="<c:url value="/conta/formEditaConta/${conta.id}"/>">
+		<i class="icon-edit"></i> Editar Conta
+		</a> 
+		<a class="btn-mini btn-danger" href="<c:url value="/conta/excluir/${conta.id}"/>" onclick="return confirm('Confirma exclusão da Conta ?')">
+		<i class="icon-remove"></i> Excluir Conta
+		</a> 
+		<a class="btn-mini btn-inverse" href="<c:url value="/lancamento/index/${conta.id}"/>">
+		<i class="icon-share-alt"></i>Lançamentos</a>
+		</div>
 
 		</div>
 	

@@ -11,7 +11,6 @@
 		
 			<label>Nome:</label>
 			<input type="text" name="conta.nome" title="Nome" validate="required;" size="70" />
-			
 			<br/>
 			
 			<label>Limite:</label>
@@ -35,7 +34,9 @@
 			
 			<br/>
 			
-			<input type="submit" value="Salvar" onclick="return isValida();" class="btn-success" />			
+			<input type="submit" value="Salvar" onclick="return isValida();" class="btn btn-success" />
+			<input type="button" value="Voltar" onclick="window.back();" class="btn btn-inverse" />
+						
 			
 		</form>
 		
