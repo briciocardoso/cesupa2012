@@ -109,6 +109,10 @@ public class LancamentoBusiness implements ILancamentoBusiness
 		return lancamento.getTransacao().equals(Lancamento.CREDITO);
 	}
 
+	public List<Lancamento> getAllByContaAteHoje(Conta conta)
+	{
+		return this.lancamentoDao.selectAllByContaAteHoje(conta);
+	}
 
 
 }

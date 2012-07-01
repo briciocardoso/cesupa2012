@@ -1,12 +1,14 @@
 package br.com.saldopositivo.controller;
 
-import br.com.caelum.vraptor.Post;
+import java.util.List;
+
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.saldopositivo.autenticator.Public;
 import br.com.saldopositivo.autenticator.UsuarioSession;
 import br.com.saldopositivo.business.UsuarioBusiness;
 import br.com.saldopositivo.helper.EnvioDeEmail;
+import br.com.saldopositivo.model.Conta;
 import br.com.saldopositivo.model.Usuario;
 
 @Resource
@@ -63,8 +65,14 @@ public class UsuarioController {
 		this.envioDeEmail.eviaEmail(usuarioLocalizado.getEmail(),usuarioBusiness.getNovaSenha());
 	}
 
-	public void index() {
-		result.include("listaContas", this.contaController.getAllContaUsuario());
+	public void index() 
+	{
+		List<Conta> contas = this.contaController.getAllContaUsuario();
+		
+		for (Conta conta : contas)
+			conta.setSaldo(this.contaController.getSaldoAtualConta(conta));
+		
+		this.result.include("listaContas",contas);
 	}
 	
 	@Public

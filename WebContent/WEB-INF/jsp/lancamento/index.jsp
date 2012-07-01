@@ -4,7 +4,11 @@
 
 <jsp:include page="../template/head.jsp"></jsp:include>
 
-<h2>Conta: ${conta.nome} - Saldo <span class="${(conta.saldo >=0)? "positivo" : "negativo" }"><fmt:formatNumber minFractionDigits="2" type="number" value="${conta.saldo}"/></span></h2>
+<h2>Conta: ${conta.nome} </h2>
+<div class="">
+Saldo Atual: <span class="${(contaSaldo.saldo >=0)? "positivo" : "negativo" }"><fmt:formatNumber minFractionDigits="2" type="number" value="${contaSaldo.saldo}"/></span>
+</div>
+<hr/>
 
 <a href="<c:url value="/lancamento/formLancamento/${conta.id}"/>" class="btn btn-small btn-primary">
 <i class="icon-plus"></i> Novo Lançamento</a>
@@ -26,6 +30,7 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
+			<th>Realizada</th>
 			<th>Data</th>
 			<th>Descrição</th>
 			<th>Categoria</th>
@@ -44,7 +49,7 @@
 				<c:set var="saldoLancamento" value="${saldoLancamento - lancamento.valor}"></c:set>
 			</c:if>
 			
-			
+			<td>${(lancamento.data <= dataAtual)? "<span class='badge badge-success'> </span>" : "	<span class='badge'> </span>"}</td>
 			<td><fmt:formatDate value="${lancamento.data}" pattern="dd/MM/yyyy" /></td>
 			<td>${lancamento.descricao}</td>	
 			<td>${lancamento.categoria.descricao}</td>	

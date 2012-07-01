@@ -6,6 +6,7 @@ import br.com.caelum.vraptor.ioc.Component;
 import br.com.saldopositivo.dao.ContaDao;
 import br.com.saldopositivo.model.Conta;
 import br.com.saldopositivo.model.Lancamento;
+import br.com.saldopositivo.model.Saldo;
 import br.com.saldopositivo.model.Transferencia;
 import br.com.saldopositivo.model.Usuario;
 
@@ -166,6 +167,35 @@ public class ContaBusiness implements IContaBusiness
 	public Conta getById(Conta conta)
 	{
 		return this.dao.selectByIdConta(conta);
+	}
+	
+	public Conta getSaldoConta(Conta conta)
+	{
+		/*
+		 * SELECT (credito.total - debito.total) as saldo, c.*  " +
+ 		 *	FROM (SELECT SUM(l.valor) as total FROM Lancamento l WHERE l.idConta = :idContaCredito AND l.data <= NOW() AND l.transacao = 'C')  as credito, " +
+		 *	" (SELECT SUM(l.valor) as total FROM Lancamento l WHERE l.idConta = :idContaDebito AND l.data <= NOW() AND l.transacao = 'D') as debito;
+		 */
+		
+		List<Lancamento> lancamentos = this.lancamentoBusiness.getAllByContaAteHoje(conta);
+		
+		if (lancamentos.size() > 0)
+		{
+			double saldoAtual = 0;
+			
+			for (Lancamento lancamento : lancamentos)
+			{
+				if (this.lancamentoBusiness.isCredito(lancamento))
+					saldoAtual += lancamento.getValor();
+				
+				if (this.lancamentoBusiness.isDebito(lancamento))
+					saldoAtual -= lancamento.getValor(); 
+			}
+			
+			conta.setSaldo(saldoAtual);
+			
+		}
+		return conta;
 	}
 	
 	

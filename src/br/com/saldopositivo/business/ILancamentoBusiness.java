@@ -30,4 +30,6 @@ public interface ILancamentoBusiness
 	
 	boolean isCredito(Lancamento lancamento);	
 	
+	List<Lancamento> getAllByContaAteHoje(Conta conta);
+	
 }

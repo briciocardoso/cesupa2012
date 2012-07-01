@@ -1,5 +1,8 @@
 package br.com.saldopositivo.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -38,6 +41,11 @@ public class LancamentoController
 		this.result.include("listaLancamento",this.lancamentoBusiness.getAllByConta(conta));
 		conta.setUsuario(this.usuarioSession.getUsuario());
 		this.result.include("conta",this.contaBusiness.get(conta));
+		this.result.include("contaSaldo",this.contaBusiness.getSaldoConta(conta));
+		
+		//String dataAtual = new SimpleDateFormat("yyyy-MM-dd").format( new Date());
+		this.result.include("dataAtual",new Date());
+		
 	}
 	
 	@Path("lancamento/formLancamento/{conta.id}")

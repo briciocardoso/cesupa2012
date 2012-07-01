@@ -117,6 +117,11 @@ public class ContaController
 	{
 		return null;
 	}
+	
+	public double getSaldoAtualConta(Conta conta)
+	{
+		return this.contaBusiness.getSaldoConta(conta).getSaldo();
+	}
 
 
 
