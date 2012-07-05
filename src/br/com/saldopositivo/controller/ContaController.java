@@ -122,7 +122,5 @@ public class ContaController
 	{
 		return this.contaBusiness.getSaldoConta(conta).getSaldo();
 	}
-
-
-
+	
 }

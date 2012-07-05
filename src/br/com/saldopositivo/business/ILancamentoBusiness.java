@@ -5,12 +5,15 @@ import java.util.List;
 
 import br.com.saldopositivo.model.Conta;
 import br.com.saldopositivo.model.Lancamento;
+import br.com.saldopositivo.model.Usuario;
 
 public interface ILancamentoBusiness 
 {
 	List<Lancamento> getAllByConta(Conta conta);
 	
 	List<Lancamento> getAllByContaMesAtual(Conta conta);
+	
+	List<Lancamento> getAllByContaProximoDias(Usuario usuario);
 	
 	void save(Lancamento lancamento);
 

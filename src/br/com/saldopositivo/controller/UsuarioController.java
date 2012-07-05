@@ -6,6 +6,8 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.saldopositivo.autenticator.Public;
 import br.com.saldopositivo.autenticator.UsuarioSession;
+import br.com.saldopositivo.business.ILancamentoBusiness;
+import br.com.saldopositivo.business.LancamentoBusiness;
 import br.com.saldopositivo.business.UsuarioBusiness;
 import br.com.saldopositivo.helper.EnvioDeEmail;
 import br.com.saldopositivo.model.Conta;
@@ -19,17 +21,20 @@ public class UsuarioController {
 	private Result result;
 	private ContaController contaController;
 	private EnvioDeEmail envioDeEmail;
+	private ILancamentoBusiness lancamentoBusiness;
 
 	UsuarioController(UsuarioBusiness usuarioBusiness,
 					  Result result,
 					  UsuarioSession usuarioSession,
 					  ContaController contaController,
-					  EnvioDeEmail envioDeEmail) {
+					  EnvioDeEmail envioDeEmail,
+					  LancamentoBusiness lancamentoBusiness) {
 		this.usuarioBusiness = usuarioBusiness;
 		this.result = result;
 		this.usuarioSession = usuarioSession;
 		this.contaController = contaController;
 		this.envioDeEmail = envioDeEmail;
+		this.lancamentoBusiness = lancamentoBusiness;
 	}
 	
 	@Public
@@ -70,8 +75,11 @@ public class UsuarioController {
 		List<Conta> contas = this.contaController.getAllContaUsuario();
 		
 		for (Conta conta : contas)
+		{
 			conta.setSaldo(this.contaController.getSaldoAtualConta(conta));
+		}
 		
+		this.result.include("listaUltimosLancamento", this.lancamentoBusiness.getAllByContaProximoDias(this.usuarioSession.getUsuario()));
 		this.result.include("listaContas",contas);
 	}
 	

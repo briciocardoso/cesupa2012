@@ -8,6 +8,7 @@ import br.com.saldopositivo.dao.LancamentoDao;
 import br.com.saldopositivo.model.Categoria;
 import br.com.saldopositivo.model.Conta;
 import br.com.saldopositivo.model.Lancamento;
+import br.com.saldopositivo.model.Usuario;
 
 @Component
 public class LancamentoBusiness implements ILancamentoBusiness 
@@ -33,6 +34,11 @@ public class LancamentoBusiness implements ILancamentoBusiness
 		lancamento.setConta(conta);
 		
 		return this.lancamentoDao.selectAllByContaMesAtual(lancamento);
+	}
+	
+	public List<Lancamento> getAllByContaProximoDias(Usuario usuario)
+	{
+		return this.lancamentoDao.selectAllByContaProximoDias(usuario);	
 	}
 
 	public void criarLancamento(Lancamento lancamento)

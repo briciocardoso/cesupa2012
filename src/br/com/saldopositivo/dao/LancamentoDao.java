@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.saldopositivo.model.Conta;
 import br.com.saldopositivo.model.Lancamento;
+import br.com.saldopositivo.model.Usuario;
 
 @Component
 public class LancamentoDao 
@@ -42,6 +43,16 @@ public class LancamentoDao
 
 		return query.getResultList();
 	}
+	
+	public List<Lancamento> selectAllByContaProximoDias(Usuario usuario)
+	{
+		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.conta.usuario.id = :idUsuario AND l.data > NOW()",Lancamento.class); 
+		query.setParameter("idUsuario", usuario.getId());
+		query.setMaxResults(5);
+
+		return query.getResultList();
+	}
+	
 	
 	public Lancamento selectById(Long id)
 	{
