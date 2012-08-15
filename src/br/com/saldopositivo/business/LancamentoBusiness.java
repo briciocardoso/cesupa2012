@@ -119,6 +119,11 @@ public class LancamentoBusiness implements ILancamentoBusiness
 	{
 		return this.lancamentoDao.selectAllByContaAteHoje(conta);
 	}
+	
+	public List<Lancamento> getAllByContaMesesAnteriores(Conta conta)
+	{
+		return this.lancamentoDao.selectAllByContaMesesAnteriores(conta);
+	}
 
 
 }

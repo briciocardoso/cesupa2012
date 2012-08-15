@@ -30,6 +30,9 @@ public interface IContaBusiness
 	
 	public Conta getSaldoConta(Conta conta);
 	
+	public double getSaldoMesesAnteriores(Conta conta);
+	
+	
 	//public List<Conta> findAllByUsuario(Long idUsuario);
 	
 	//public Conta findById(Long id);

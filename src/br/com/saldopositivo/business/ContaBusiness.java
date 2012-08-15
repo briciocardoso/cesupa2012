@@ -197,6 +197,29 @@ public class ContaBusiness implements IContaBusiness
 		return conta;
 	}
 	
+	public double getSaldoByLancamentos(List<Lancamento> lancamentos)
+	{
+		double saldo = 0;
+
+		if (lancamentos.size() > 0)
+		{
+			for (Lancamento lancamento : lancamentos)
+			{
+				if (this.lancamentoBusiness.isCredito(lancamento))
+					saldo += lancamento.getValor();
+				
+				if (this.lancamentoBusiness.isDebito(lancamento))
+					saldo -= lancamento.getValor(); 
+			}
+		}
+		return saldo;
+	}
+	
+	public double getSaldoMesesAnteriores(Conta conta)
+	{
+		return this.getSaldoByLancamentos(this.lancamentoBusiness.getAllByContaMesesAnteriores(conta));
+	}
+	
 	
 	
 }

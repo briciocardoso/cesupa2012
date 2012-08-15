@@ -15,6 +15,8 @@ public interface ILancamentoBusiness
 	
 	List<Lancamento> getAllByContaProximoDias(Usuario usuario);
 	
+	List<Lancamento> getAllByContaMesesAnteriores(Conta conta);
+	
 	void save(Lancamento lancamento);
 
 	void update(Lancamento lancamento);

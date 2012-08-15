@@ -30,7 +30,7 @@ public class LancamentoDao
 	
 	public List<Lancamento> selectAllByContaMesAtual(Lancamento lancamento)
 	{
-		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.conta.id = :idConta AND MONTH(l.data) = MONTH(NOW()) ORDER BY l.data",Lancamento.class); 
+		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.conta.id = :idConta AND MONTH(l.data) = MONTH(NOW()) AND YEAR(l.data) = YEAR(NOW()) ORDER BY l.data",Lancamento.class); 
 		query.setParameter("idConta", lancamento.getConta().getId());
 
 		return query.getResultList();
@@ -46,9 +46,18 @@ public class LancamentoDao
 	
 	public List<Lancamento> selectAllByContaProximoDias(Usuario usuario)
 	{
-		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.conta.usuario.id = :idUsuario AND l.data > NOW()",Lancamento.class); 
+		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.conta.usuario.id = :idUsuario AND l.data > NOW() ORDER BY l.conta.nome,l.data",Lancamento.class); 
 		query.setParameter("idUsuario", usuario.getId());
 		query.setMaxResults(5);
+
+		return query.getResultList();
+	}
+	
+	public List<Lancamento> selectAllByContaMesesAnteriores(Conta conta)
+	{
+		TypedQuery<Lancamento> query = this.entityManager.createQuery("SELECT l FROM Lancamento l WHERE l.conta.id = :idConta AND l.data <= (LAST_DAY(SUBDATE(NOW(),INTERVAL 1 MONTH)))",Lancamento.class); 
+		query.setParameter("idConta", conta.getId());
+		query.setParameter("mes",1);
 
 		return query.getResultList();
 	}

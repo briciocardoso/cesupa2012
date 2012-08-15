@@ -5,8 +5,8 @@
 <jsp:include page="../template/head.jsp"></jsp:include>
 
 <h2>Conta: ${conta.nome} </h2>
-<div class="">
-Saldo Atual: <span class="${(contaSaldo.saldo >=0)? "positivo" : "negativo" }"><fmt:formatNumber minFractionDigits="2" type="number" value="${contaSaldo.saldo}"/></span>
+<div>
+Saldo Atual: <span id="destaqueSaldo" class="${(contaSaldo.saldo >=0)? "positivo" : "negativo" }"><fmt:formatNumber minFractionDigits="2" type="number" value="${contaSaldo.saldo}"/></span>
 </div>
 <hr/>
 
@@ -25,7 +25,7 @@ Saldo Atual: <span class="${(contaSaldo.saldo >=0)? "positivo" : "negativo" }"><
 
 <a class="btn-inverse btn-small" href="<c:url value="/lancamento/listaMesAtual/${conta.id}"/>">Mês Atual</a>
 
-<c:set var="saldoLancamento" value="0" scope="page"></c:set>
+<c:set var="saldoLancamento" value="${saldoAnterior}" scope="page"></c:set>
 
 <table class="table table-striped">
 	<thead>
