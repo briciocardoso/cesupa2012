@@ -18,7 +18,7 @@ public class EnvioDeEmail
 {
 	private String remetente = "gcm.sequeira@gmail.com";
 	
-	public void eviaEmail(String destinatario, String senhaNova){
+	public void enviaEmail(String destinatario, String senhaNova){
 		
             Properties props = new Properties();
             //Parâmetros de conexão com servidor Gmail

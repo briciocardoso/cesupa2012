@@ -220,6 +220,4 @@ public class ContaBusiness implements IContaBusiness
 		return this.getSaldoByLancamentos(this.lancamentoBusiness.getAllByContaMesesAnteriores(conta));
 	}
 	
-	
-	
 }

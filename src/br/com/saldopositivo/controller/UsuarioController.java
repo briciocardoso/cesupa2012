@@ -10,6 +10,7 @@ import br.com.saldopositivo.business.ILancamentoBusiness;
 import br.com.saldopositivo.business.LancamentoBusiness;
 import br.com.saldopositivo.business.UsuarioBusiness;
 import br.com.saldopositivo.helper.EnvioDeEmail;
+import br.com.saldopositivo.helper.Message;
 import br.com.saldopositivo.model.Conta;
 import br.com.saldopositivo.model.Usuario;
 
@@ -61,13 +62,19 @@ public class UsuarioController {
 	}
 	
 	@Public
-	public void sendEmailSenha(String email){
+	public void sendEmailSenha(String email)
+	{	
+		try {
+			Usuario usuarioLocalizado = usuarioBusiness.buscaUsuarioPorEmail(email);
+			usuarioBusiness.trocaSenha(usuarioLocalizado);
+			this.envioDeEmail.enviaEmail(usuarioLocalizado.getEmail(),usuarioBusiness.getNovaSenha());
+			this.result.include(Message.SUCCESS, "Sua senha de acesso foi encaminhada o seu email");
+			
+		} catch (RuntimeException e) {
+			result.include(Message.FAIL,"Email não localizado");
+		}
 		
-		Usuario usuarioLocalizado = usuarioBusiness.buscaUsuarioPorEmail(email);
-		
-		usuarioBusiness.trocaSenha(usuarioLocalizado);
-		
-		this.envioDeEmail.eviaEmail(usuarioLocalizado.getEmail(),usuarioBusiness.getNovaSenha());
+		result.redirectTo(this).login();
 	}
 
 	public void index() 

@@ -21,6 +21,7 @@
 	<li><a href="/saldopositivo/conta/formTransferencia">Transferências</a></li>
 	<li><a href="/saldopositivo/categoria/formCategoria">Categorias</a></li>
 	<li><a href="/saldopositivo/usuario/formEdita">Usuário</a></li>
+	<li><a href="/saldopositivo/usuario/formEdita">Relatórios</a></li>
 	<li><a href="/saldopositivo/usuario/sair">Sair</a></li>
 </ul>
 <div style="float: right;">Usuário: ${usuarioSession.usuario.email}</div>

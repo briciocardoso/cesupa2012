@@ -43,7 +43,7 @@ public class UsuarioDao {
 			query.setParameter("email", email);
 			return (Usuario)query.getSingleResult();
 		} catch (NoResultException nre) {
-			this.getEntityManager().getTransaction().rollback();
+			//this.getEntityManager().getTransaction().rollback();
 			nre.printStackTrace();
 			throw new RuntimeException("Usuario não encontrado para esse email descrito");
 		}catch(RuntimeException re){

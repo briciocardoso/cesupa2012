@@ -2,28 +2,11 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>		
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<jsp:include page="../template/headerNoAutentication.jsp"></jsp:include>
 
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" type="text/css" href="../resource/css/960gs.css" />
-		<link rel="stylesheet" type="text/css" href="../resource/css/bootstrap.css" />
-		
-		<title>Saldo Positivo</title>
-	</head>
-	
-<body>
-
-<div class="container_12">
-
-	<div class="grid_12">
-
-	<h1>Bem Vindo ao Saldo Positivo</h1>
+	<h1 id="tituloIndex">Saldo Positivo</h1>
 	
 	<hr/>
-	
-	</div>
 	
 	<div class="clear"></div>
 	
@@ -61,13 +44,4 @@
 	
 	<div class="clear"></div>
 
-</div>
-
-	
-	<script type="text/javascript" src="../resource/js/Ajax.js"></script>
-	<script type="text/javascript" src="../resource/js/Validate.js"></script>
-
-	
-</body>
-
-</html>
+<jsp:include page="../template/footerNoAutentication.jsp"></jsp:include>

@@ -119,6 +119,18 @@ function trataValidateFunction(validate,campo)
 	{
 		return isNotLimitMinLength(campo,getValorEntreParentese(validate));
 	}
+	case "equals":
+		{
+			var campoValidate = document.getElementById(getValorEntreParentese(validate));
+			
+			if (campoValidate.value != campo.value)
+			{
+				showError(campo,"Atençao: O campo "+ campo.title + " deve ser igual ao campo "+ campoValidate.title);
+				return true;
+			}
+			return false;
+		}
+	
 	default: return false;
 	}
 }
@@ -239,8 +251,7 @@ function isNotLimitMinLength(campo,limit,label)
 		if (label == null)
 			label = campo.title;
 
-		alert("Atenção: O campo "+label+" deve conter no mínimo "+limit+" caracteres");
-		campo.focus();
+		showError(campo, "Atenção: O campo "+label+" deve conter no mínimo "+limit+" caracteres");
 		return true;
 	}
 	return false;
