@@ -1,38 +1,48 @@
 function isValida()
 {
+	hiddenMessage();
+
 	var elements = document.form.elements;
 
 	for ( var i = 0; i < elements.length; i++)
 	{
-		if (isTypeValidate(elements[i].type))
+		if (!validateField(elements[i]))
+			return false;
+	}
+	return true;
+}
+
+function validateField(element)
+{
+	if (isTypeValidate(element.type))
+	{
+		var validate = element.getAttribute('validate');
+
+		if (validate != null)
 		{
-			var validate = elements[i].getAttribute('validate');
+			var validacao = "";
+			var itemValidacao = new Array();
+			var totalValidacao = 0;
 
-			if (validate != null)
+			for ( var x = 0; x < validate.length; x++)
 			{
-				var validacao = "";
-				var itemValidacao = new Array();
-				var totalValidacao = 0;
+				if (validate.charAt(x) != ";")
+					validacao += validate.charAt(x);
+				else
+				{
+					itemValidacao[totalValidacao++] = validacao;
+					validacao = "";
+				}
+			}
 
-				for ( var x = 0; x < validate.length; x++)
-				{
-					if (validate.charAt(x) != ";")
-						validacao += validate.charAt(x);
-					else
-					{
-						itemValidacao[totalValidacao++] = validacao;
-						validacao = "";
-					}
-				}
-				
-				for ( var j = 0; j < itemValidacao.length; j++)
-				{
-					if (trataValidate(itemValidacao[j], elements[i]))
-						return false;
-				}
+			for ( var j = 0; j < itemValidacao.length; j++)
+			{
+				if (trataValidate(itemValidacao[j], element))
+					return false;
 			}
 		}
 	}
+	
 	return true;
 }
 
@@ -43,23 +53,23 @@ function trataValidate(validate,campo,label)
 
 	switch (validate) 
 	{
-		case "required": 
+	case "required": 
+	{
+		if (isSelect(campo))
+			return isNotSelected(campo, label);
+		else if (isCheckBox(campo))
 		{
-			if (isSelect(campo))
-				return isNotSelected(campo, label);
-			else if (isCheckBox(campo))
-			{
-				return isNotCheckedCampo(campo, label);
-			}else
-				return isEmpty(campo, label);
-		}
-		case "number": return isNotNumber(campo, label);
-		case "notZero": return isNumeroIgualZero(campo,label);
-		case "date": return isNotDate(campo,label);
-		case "cpf": return isNotCPF(campo, label);
-		case "email": return isNotEmail(campo,label);
-		case "integer": return isNumeroInteiro(campo,label);
-		default: return false;
+			return isNotCheckedCampo(campo, label);
+		}else
+			return isEmpty(campo, label);
+	}
+	case "number": return isNotNumber(campo, label);
+	case "notZero": return isNumeroIgualZero(campo,label);
+	case "date": return isNotDate(campo,label);
+	case "cpf": return isNotCPF(campo, label);
+	case "email": return isNotEmail(campo,label);
+	case "integer": return isNumeroInteiro(campo,label);
+	default: return false;
 	}
 }
 
@@ -68,7 +78,7 @@ function isNotCheckedCampo(campo,label)
 	var elements = document.form.elements;
 
 	var checked = 0;
-	
+
 	for ( var i in elements)
 	{
 		if (isCheckBox(elements[i]))
@@ -76,19 +86,19 @@ function isNotCheckedCampo(campo,label)
 				if (elements[i].checked)
 					checked++;
 	}
-	
+
 	if (checked == 0)
 	{
 		if (label == null)
 			label = campo.title;
-		
+
 		alert("Atenção: Deve ser marcado pelo menos um "+ label);
 		campo.focus();
 		return true;
 	}
-	
+
 	return false;
-	
+
 }
 
 function isCheckBox(campo)
@@ -103,7 +113,7 @@ function isValidateComParametro(validate)
 {
 	if (validate.indexOf("(",0) != -1)
 		return true;
-	
+
 	return false;
 }
 
@@ -120,17 +130,17 @@ function trataValidateFunction(validate,campo)
 		return isNotLimitMinLength(campo,getValorEntreParentese(validate));
 	}
 	case "equals":
+	{
+		var campoValidate = document.getElementById(getValorEntreParentese(validate));
+
+		if (campoValidate.value != campo.value)
 		{
-			var campoValidate = document.getElementById(getValorEntreParentese(validate));
-			
-			if (campoValidate.value != campo.value)
-			{
-				showError(campo,"Atençao: O campo "+ campo.title + " deve ser igual ao campo "+ campoValidate.title);
-				return true;
-			}
-			return false;
+			showError(campo,"Atençao: O campo "+ campo.title + " deve ser igual ao campo "+ campoValidate.title);
+			return true;
 		}
-	
+		return false;
+	}
+
 	default: return false;
 	}
 }
@@ -143,7 +153,7 @@ function getNameFunctionValidateComParametro(validate)
 function getValorEntreParentese(string)
 {
 	var posicaoParentese = string.indexOf("(",0);
-	
+
 	var parametro = string.substr(posicaoParentese,string.length);
 	parametro = parametro.replace("(","");
 	parametro = parametro.replace(")","");
@@ -153,10 +163,22 @@ function getValorEntreParentese(string)
 
 function showError(campo,mensagem)
 {
-	var element = document.getElementById('messages');
+	var element = getElementMessage();
 	element.setAttribute("class","alert alert-error");
 	element.innerHTML = mensagem;
+	element.setAttribute("style","visibility:visible");
 	campo.focus();
+}
+
+function hiddenMessage()
+{
+	var element = getElementMessage();
+	element.setAttribute("style","visibility:hidden");
+}
+
+function getElementMessage()
+{
+	return document.getElementById('messages');
 }
 
 function isSelect(campo)
@@ -192,9 +214,9 @@ function isEmpty(campo,label)
 	{
 		if (label == null)
 			label = campo.title;
-		
+
 		showError(campo, "Atenção: O campo "+label+" é Obrigatório");
-		
+
 		campo.value = '';
 		return true;
 	}
@@ -297,9 +319,9 @@ function isNotEmail(campo,label)
 		if (label == null)
 			label = campo.title;
 
-		
+
 		showError(campo,'Atenção: O campo '+label+' é inválido');
-		
+
 		campo.focus();
 		return true;
 	}

@@ -43,9 +43,7 @@ public class UsuarioDao {
 			query.setParameter("email", email);
 			return (Usuario)query.getSingleResult();
 		} catch (NoResultException nre) {
-			//this.getEntityManager().getTransaction().rollback();
-			nre.printStackTrace();
-			throw new RuntimeException("Usuario não encontrado para esse email descrito");
+			return null;
 		}catch(RuntimeException re){
 			re.getMessage();
 			re.printStackTrace();
@@ -62,7 +60,6 @@ public class UsuarioDao {
 			return (Usuario) query.getSingleResult();
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			return null;
 		}
 

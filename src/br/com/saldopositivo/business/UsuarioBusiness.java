@@ -8,12 +8,12 @@ import br.com.saldopositivo.model.Usuario;
 
 @Component
 public class UsuarioBusiness implements IUsuarioBusiness {
-	
+
 	private UsuarioDao usuarioDao;
-	
+
 	private String novaSenha;
-	
-	public UsuarioBusiness(UsuarioDao usuarioDao){
+
+	public UsuarioBusiness(UsuarioDao usuarioDao) {
 		this.usuarioDao = usuarioDao;
 	}
 
@@ -24,16 +24,16 @@ public class UsuarioBusiness implements IUsuarioBusiness {
 
 	@Override
 	public void editar(Usuario usuario) {
-		this.usuarioDao.editar(usuario);		
+		this.usuarioDao.editar(usuario);
 	}
 
 	@Override
-	public Usuario autenticarUsuario(Usuario usuario) {		
+	public Usuario autenticarUsuario(Usuario usuario) {
 		return this.usuarioDao.selectUsuarioByEmailSenha(usuario);
 	}
-	
-	//Não tive que por na Interface(Lembrar o Vtr da discur em sala)
-	public String gerarNovaSenhaMd5(){
+
+	// Não tive que por na Interface(Lembrar o Vtr da discur em sala)
+	public String gerarNovaSenhaMd5() {
 		Random ran = new Random();
 		String[] letras = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
 				"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
@@ -50,8 +50,8 @@ public class UsuarioBusiness implements IUsuarioBusiness {
 		}
 		return senha;
 	}
-	
-	public void trocaSenha(Usuario usuario){
+
+	public void trocaSenha(Usuario usuario) {
 		usuario.setSenha(gerarNovaSenhaMd5());
 		usuarioDao.tracaSenha(usuario);
 		setNovaSenha(usuario.getSenha());
@@ -62,6 +62,16 @@ public class UsuarioBusiness implements IUsuarioBusiness {
 		return usuarioDao.buscaUsuarioPorEmail(email);
 	}
 
+	public boolean isUsuarioExiste(Usuario usuario) {
+		
+		Usuario usuarioLocalizado = this.buscaUsuarioPorEmail(usuario.getEmail());
+		
+		if(usuarioLocalizado != null)
+			return true;
+
+		return false;
+	}
+
 	public String getNovaSenha() {
 		return novaSenha;
 	}
@@ -69,6 +79,5 @@ public class UsuarioBusiness implements IUsuarioBusiness {
 	public void setNovaSenha(String novaSenha) {
 		this.novaSenha = novaSenha;
 	}
-	
-	
+
 }

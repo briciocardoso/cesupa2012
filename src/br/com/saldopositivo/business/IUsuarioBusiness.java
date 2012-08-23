@@ -12,4 +12,6 @@ public interface IUsuarioBusiness {
 	
 	public Usuario buscaUsuarioPorEmail(String email);
 	
+	public boolean isUsuarioExiste(Usuario usuario);
+	
 }

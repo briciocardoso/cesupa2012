@@ -104,14 +104,32 @@ public class UsuarioController {
 			this.usuarioSession.setUsuario(usuarioAutenticado);
 			this.result.redirectTo(UsuarioController.class).index();
 		} else
+		{
+			this.result.include(Message.FAIL, "Falha no Login");
 			this.result.redirectTo(UsuarioController.class).login();
+		}
 	}
 	
+	
 	@Public
-	public void criarAcesso(Usuario usuario) {
-		this.usuarioBusiness.salvar(usuario);
-		result.include("mensagem", "Bem vindo ao Saldo");
-		result.redirectTo(UsuarioController.class).login();
+	public void criarAcesso(Usuario usuario) 
+	{
+		try {
+			if(this.usuarioBusiness.isUsuarioExiste(usuario)){
+				result.include(Message.FAIL, "Email ja cadastrado");
+			    result.redirectTo(UsuarioController.class).login();
+			}else
+			{
+				this.usuarioBusiness.salvar(usuario);
+			    result.include(Message.SUCCESS, "Seu acesso foi criado com sucesso");
+			    result.redirectTo(UsuarioController.class).login();
+			}
+				
+		} catch (Exception e) {
+			result.include(Message.FAIL,e.getMessage());
+			result.redirectTo(UsuarioController.class).formCriarAcesso();
+		}
+		
 	}
 
 	public void sair() {

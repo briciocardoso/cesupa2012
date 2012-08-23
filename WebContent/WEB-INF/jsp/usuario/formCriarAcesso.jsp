@@ -18,22 +18,22 @@
 		
 		<form action='<c:url value="/usuario/criarAcesso"/>' method="post" name="form">
 		
-		  <label>Nome:</label>
-		  <input type="text" name="usuario.nome" size="70" title="Nome" validate="required;"/>
+		  <label>Nome <span id="messageError">*</span>:</label>
+		  <input type="text" tabindex="1" name="usuario.nome" size="70" title="Nome" validate="required;" onblur="validateField(this);"/>
 		  <br/>
 
-		  <label>Email:</label>
-		  <input type="text" name="usuario.email" size="70" title="Email" validate="required;email;"/>
+		  <label>Email <span id="messageError">*</span>:</label>
+		  <input type="text" name="usuario.email" size="70" title="Email" validate="required;email;" onblur="validateField(this);"/>
 
 		  <br/>	
 		  
-		  <label>Senha:</label>
-		  <input id="usuario.senha" type="password" name="usuario.senha" size="30" title="Senha" validate="required;min(6);"/>
+		  <label>Senha <span id="messageError">*</span>:</label>
+		  <input id="usuario.senha" type="password" name="usuario.senha" size="30" title="Senha" validate="required;min(6);" onblur="validateField(this);"/>
 
 		  <br/>
 		
-		  <label>Confirmação de Senha:</label>
-		  <input type="password" name="confirmacaoSenha" size="30" title="Confirmação de Senha" validate="required;equals(usuario.senha);"/>	
+		  <label>Confirmação de Senha <span id="messageError">*</span>:</label>
+		  <input type="password" name="confirmacaoSenha" size="30" title="Confirmação de Senha" validate="required;equals(usuario.senha);" onblur="validateField(this);"/>	
 		  <br/>
 
 		  <input type="submit" value="Salvar" onclick="return isValida();" class="btn btn-success"/>

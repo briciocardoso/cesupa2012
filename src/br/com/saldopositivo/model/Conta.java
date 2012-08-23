@@ -30,7 +30,7 @@ public class Conta {
 	private Moeda moeda = new Moeda();
 
 	@ManyToOne
-	@JoinColumn(name = "idUsuario")
+ 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 
 	public Long getId() {
