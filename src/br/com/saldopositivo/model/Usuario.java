@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -24,6 +25,9 @@ public class Usuario
 
 	@Column
 	private String senha;
+	
+	@Transient
+	private String confSenha;
 	
 
 	public Long getId() {
@@ -57,4 +61,13 @@ public class Usuario
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public String getConfSenha(){
+		return confSenha;
+	}
+	
+	public void setConfSenha(String confSenha){
+		this.confSenha = confSenha;
+	}
+	
 }

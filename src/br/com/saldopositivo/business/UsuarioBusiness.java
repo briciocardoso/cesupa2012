@@ -12,9 +12,21 @@ public class UsuarioBusiness implements IUsuarioBusiness {
 	private UsuarioDao usuarioDao;
 
 	private String novaSenha;
-
+	
+	private String senhaAtualDigitada;
+	
+	
 	public UsuarioBusiness(UsuarioDao usuarioDao) {
 		this.usuarioDao = usuarioDao;
+	}
+	
+	public boolean isSenhaAtualEIgualSenhaDigitada(String senhaAtualDigitada, String senhaAtual){
+		if(senhaAtualDigitada.equals(senhaAtual)){
+			return true;
+		}else{
+			System.out.println(">>>>>>> Senhas Diferentes, senha digitada: " + senhaAtual);
+			return false;
+		}
 	}
 
 	@Override
@@ -25,6 +37,7 @@ public class UsuarioBusiness implements IUsuarioBusiness {
 	@Override
 	public void editar(Usuario usuario) {
 		this.usuarioDao.editar(usuario);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>.Editou");
 	}
 
 	@Override
@@ -78,6 +91,14 @@ public class UsuarioBusiness implements IUsuarioBusiness {
 
 	public void setNovaSenha(String novaSenha) {
 		this.novaSenha = novaSenha;
+	}
+
+	public String getSenhaAtualDigitada() {
+		return senhaAtualDigitada;
+	}
+
+	public void setSenhaAtualDigitada(String senhaAtualDigitada) {
+		this.senhaAtualDigitada = senhaAtualDigitada;
 	}
 
 }

@@ -2,6 +2,10 @@ package br.com.saldopositivo.controller;
 
 import java.util.List;
 
+import org.jruby.RubyProcess.Sys;
+
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
+
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.saldopositivo.autenticator.Public;
@@ -49,15 +53,18 @@ public class UsuarioController {
 	}
 	
 	public void formEdita(){
-		
 		Usuario usuario = usuarioSession.getUsuario();
 		result.include("usuario", usuario);
 	}
 	
-	public void editar(Usuario usuario){
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + usuario.getNome());
-		this.usuarioBusiness.editar(usuario);
+	
+	public void editar(Usuario usuario, String senhaAtualDigitada, String novaSenhaDigitada){
+		String senhaDoUsuario = usuario.getSenha();
+		usuario.setSenha(novaSenhaDigitada);
+		if(this.usuarioBusiness.isSenhaAtualEIgualSenhaDigitada(senhaAtualDigitada,senhaDoUsuario) && usuario.getConfSenha().equals(novaSenhaDigitada))
+			this.usuarioBusiness.editar(usuario);
 		this.usuarioSession.setUsuario(usuario);
+		result.include(Message.SUCCESS,"Seus Dados foram modificados.");
 		result.redirectTo(this).index();
 	}
 	
